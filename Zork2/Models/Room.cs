@@ -7,9 +7,7 @@ namespace Zork2.Models
 {
     public class Room
     {
-<<<<<<< HEAD
-        private int RoomNumber { get; set; }
-=======
+
         public Room(int roomNumber, string textField, int[] nextRoom)
         {
             RoomNumber = roomNumber;
@@ -18,7 +16,6 @@ namespace Zork2.Models
         }
 
         public int RoomNumber { get; set; }
->>>>>>> master
 
         public string TextField { get; set; }
 
