@@ -9,8 +9,22 @@ namespace Zork2.Controllers
 {
     public class HomeController : Controller
     {
+        static Boolean firstSetup = false;
 
         static Story theStory = new Story();
+
+        static List<Room> roomList = new List<Room>();
+
+        
+
+        private static void BuildRooms()
+        {
+
+            roomList.Add(new Room(1, "Start", null));
+            roomList.Add(new Room(2, "boom", null));
+            roomList.Add(new Room(3, "huis", null));
+        }
+
 
         Dictionary<string, string> Commands = new Dictionary<string, string>();
 
@@ -38,9 +52,20 @@ namespace Zork2.Controllers
 
         public ActionResult Index(string input)
         {
+
+            if (!firstSetup)
+            {
+                BuildRooms();
+                firstSetup = true;
+            }
+            
+
             System.Diagnostics.Debug.WriteLine("Input: " + input);
             System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
 
+            //var Kamer = roomList[1].RoomNumber+ roomList[1].TextField;
+
+            //theStory.MyStory += (Kamer + Environment.NewLine);
             if (input != null)
             {
                 theStory.MyStory += GetCommandText(input);
