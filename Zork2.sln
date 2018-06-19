@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zork2", "Zork2\Zork2.csproj", "{36483A0B-BB43-4B37-BF81-BB790C23C737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zork2.Tests", "Zork2.Tests\Zork2.Tests.csproj", "{F9F2235B-5DFB-4442-A6F0-8352B30C9953}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36483A0B-BB43-4B37-BF81-BB790C23C737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36483A0B-BB43-4B37-BF81-BB790C23C737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36483A0B-BB43-4B37-BF81-BB790C23C737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36483A0B-BB43-4B37-BF81-BB790C23C737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F2235B-5DFB-4442-A6F0-8352B30C9953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F2235B-5DFB-4442-A6F0-8352B30C9953}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F2235B-5DFB-4442-A6F0-8352B30C9953}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F2235B-5DFB-4442-A6F0-8352B30C9953}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A98427C7-32BB-4D41-AF5C-B3A8E91B9837}
+	EndGlobalSection
+EndGlobal
