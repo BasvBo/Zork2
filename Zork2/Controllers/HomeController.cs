@@ -19,10 +19,12 @@ namespace Zork2.Controllers
 
         private static void BuildRooms()
         {
+           
+            roomList.Add(new Room(1, "Start",new int[] { 2, 3 }));
+            roomList.Add(new Room(2, "boom", new int[] { 1, 3 }));
+            roomList.Add(new Room(3, "huis", new int[] { 1, 2 }));
 
-            roomList.Add(new Room(1, "Start", null));
-            roomList.Add(new Room(2, "boom", null));
-            roomList.Add(new Room(3, "huis", null));
+
         }
 
 
