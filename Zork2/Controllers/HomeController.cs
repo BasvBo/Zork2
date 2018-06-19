@@ -15,16 +15,33 @@ namespace Zork2.Controllers
 
         static List<Room> roomList = new List<Room>();
 
-        
+        int roomIndex;
+
 
         private static void BuildRooms()
         {
            
-            roomList.Add(new Room(1, "Start",new int[] { 2, 3 }));
-            roomList.Add(new Room(2, "boom", new int[] { 1, 3 }));
-            roomList.Add(new Room(3, "huis", new int[] { 1, 2 }));
+            roomList.Add(new Room(0, "start",new int[] { 1,2,3}));
+            roomList.Add(new Room(1, "boom", new int[] { 0,2,3 }));
+            roomList.Add(new Room(2, "huis", new int[] { 0,1,3 }));
+            roomList.Add(new Room(3, "bos", new int[] { 0,1,2 }));
 
+        }
 
+        private string posibleRoom(int room)
+        {
+            string roomName = "";
+
+            int[] roomIndex = roomList[room].nextRoom;
+
+            //Console.WriteLine(roomIndex);
+
+            foreach (int element in roomIndex)
+            {
+                roomName += roomList[element].TextField + ", ";
+            }
+
+            return roomName;
         }
 
 
@@ -54,15 +71,22 @@ namespace Zork2.Controllers
 
         public ActionResult Index(string input)
         {
+
+            
+
             //init
             if (!firstSetup)
             {
                 BuildRooms();
+                roomIndex = 0;
                 firstSetup = true;
                 Player player = new Player(1,5,5,null);
 
-                var Kamer = roomList[1].TextField;
-                theStory.MyStory += (Kamer + Environment.NewLine);
+               // var Kamer = roomList[0].TextField;
+
+                theStory.MyStory += (posibleRoom(roomList[0].RoomNumber)+ Environment.NewLine);
+
+                //theStory.MyStory += (Kamer + Environment.NewLine);
             }
 
             System.Diagnostics.Debug.WriteLine("Input: " + input);
@@ -71,7 +95,24 @@ namespace Zork2.Controllers
             
             if (input != null)
             {
-                theStory.MyStory += GetCommandText(input);
+
+                if (input == roomList[roomIndex].TextField)
+                {
+                    theStory.MyStory += "not posible";
+                }
+                else
+                { 
+                    foreach(Room element in roomList)
+                    {
+                        if (input == element.TextField)
+                        {
+                            roomIndex = element.RoomNumber;
+                            theStory.MyStory += (posibleRoom(element.RoomNumber) + roomIndex + Environment.NewLine);
+                        
+                        }
+                    }
+                    //theStory.MyStory += GetCommandText(input);
+                }
             }
 
 
