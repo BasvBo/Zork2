@@ -52,30 +52,26 @@ namespace Zork2.Controllers
 
         public ActionResult Index(string input)
         {
-
+            //init
             if (!firstSetup)
             {
                 BuildRooms();
                 firstSetup = true;
+                Player player = new Player(1,5,5,null);
+
+                var Kamer = roomList[1].TextField;
+                theStory.MyStory += (Kamer + Environment.NewLine);
             }
-            
 
             System.Diagnostics.Debug.WriteLine("Input: " + input);
             System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
 
-            //var Kamer = roomList[1].RoomNumber+ roomList[1].TextField;
-
-            //theStory.MyStory += (Kamer + Environment.NewLine);
+            
             if (input != null)
             {
                 theStory.MyStory += GetCommandText(input);
-
             }
 
-            if (input == "")
-            {
-                theStory.MyStory += (input + Environment.NewLine);
-            }
 
             return View(theStory);
         }
