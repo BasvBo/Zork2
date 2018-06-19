@@ -7,6 +7,7 @@ namespace Zork2.Models
 {
     public class Room
     {
+
         public Room(int roomNumber, string textField, int[] nextRoom)
         {
             RoomNumber = roomNumber;
