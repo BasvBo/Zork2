@@ -7,7 +7,7 @@ namespace Zork2.Models
 {
     public class Room
     {
-        public int RoomNumber { get; set; }
+        private int RoomNumber { get; set; }
 
         public string TextField { get; set; }
 
