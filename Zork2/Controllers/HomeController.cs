@@ -48,7 +48,13 @@ namespace Zork2.Controllers
             roomList.Add(new Room(0, "start",new int[] { 1,2,3}));
             roomList.Add(new Room(1, "boom", new int[] { 0,2,3 }));
             roomList.Add(new Room(2, "huis", new int[] { 0,1,3 }));
-            roomList.Add(new Room(3, "bos", new int[] { 0,1,2 }));
+            roomList.Add(new Room(3, "bos", new int[] { 1,2,4 }));
+            roomList.Add(new Room(4, "kat", new int[] { 3, 5 }));
+            roomList.Add(new Room(5, "sloot", new int[] { 4, 6, 7 }));
+            roomList.Add(new Room(6, "berg", new int[] { 5, 8 }));
+            roomList.Add(new Room(7, "put", new int[] { 5, 8 }));
+            roomList.Add(new Room(8, "strand", new int[] { 7, 6, 9 }));
+            roomList.Add(new Room(9, "einde", new int[] { 8 }));
         }
 
         /// <summary>
@@ -112,6 +118,10 @@ namespace Zork2.Controllers
             {
                 theStory.MyStory += ("You are already there" + Environment.NewLine);
             }
+            else if(input == roomList[roomList.Count - 1].TextField)
+            {
+                theStory.MyStory += ("you are a loser baby so why don't you kill me" + Environment.NewLine);
+            }
             else
             {
                 foreach (Room element in roomList) //search for new room index and show next posible rooms
@@ -150,7 +160,6 @@ namespace Zork2.Controllers
 
         public ActionResult Index(string input)
         {
-
             setUpGame();
 
             checkInput(input);
