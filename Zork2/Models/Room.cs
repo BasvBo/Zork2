@@ -23,8 +23,5 @@ namespace Zork2.Models
 
       //  public List<string> Options { get; set; }
         
-
-
-        // maak functie voor add List to Room
     }
 }

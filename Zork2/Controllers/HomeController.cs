@@ -80,15 +80,24 @@ namespace Zork2.Controllers
         {
             if (input != null)
             {
+                bool inputIsRoom = false;
+
+                theStory.MyStory += ("input -> " + input + Environment.NewLine);
+
                 // search if input is a room namen
-                foreach(Room element in roomList)
+                foreach (Room element in roomList)
                 {
                     if(input == element.TextField)
                     {
+                        inputIsRoom = true;
                         roomInput(input);
                     }
                 }
 
+                if(inputIsRoom == false)
+                {
+                    theStory.MyStory += ("This is not a command" + Environment.NewLine);
+                }
             }
         }
 
@@ -109,7 +118,7 @@ namespace Zork2.Controllers
                 {
                     if (input == element.TextField)
                     {
-                        theStory.MyStory += (posibleRoom(element.RoomNumber) + Environment.NewLine);
+                        theStory.MyStory += ("where to next? -> " + posibleRoom(element.RoomNumber) + Environment.NewLine);
                         player.currentRoom = element.RoomNumber;
 
                     }
