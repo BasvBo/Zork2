@@ -10,8 +10,8 @@ namespace Zork2.Models
         
 
         public int currentRoom { get; set; }
-        private int totalHealth { get; set; }
-        private int currentHealth { get; set; }
+        public int totalHealth { get; set; }
+        public int currentHealth { get; set; }
         public List<string> Item { get; set; }
         public Player(int currentRoom, int totalHealth, int currentHealth, List<string> item)
         {

@@ -27,13 +27,13 @@ namespace Zork2.Controllers
         /// <summary>
         /// Setup is cald once to setup the game ande build the rooms
         /// </summary>
-        private void setUpGame()
+        private void SetUpGame()
         {
             if (!firstSetup)
             {
                 BuildRooms();
 
-                theStory.MyStory += (posibleRoom(roomList[0].RoomNumber) + Environment.NewLine);
+                theStory.MyStory += (PosibleRoom(roomList[0].RoomNumber) + Environment.NewLine);
 
                 firstSetup = true;
             }
@@ -62,7 +62,7 @@ namespace Zork2.Controllers
         /// </summary>
         /// <param name="room"></param>
         /// <returns></returns>
-        private string posibleRoom(int room)
+        private string PosibleRoom(int room)
         {
             string roomName = "";
 
@@ -82,7 +82,7 @@ namespace Zork2.Controllers
         /// check what kind of input the player has given, input = string input from game
         /// </summary>
         /// <param name="input"></param>
-        private void checkInput(string input)
+        private void CheckInput(string input)
         {
             if (input != null)
             {
@@ -96,7 +96,7 @@ namespace Zork2.Controllers
                     if(input == element.TextField)
                     {
                         inputIsRoom = true;
-                        roomInput(input);
+                        RoomInput(input);
                     }
                 }
 
@@ -112,7 +112,7 @@ namespace Zork2.Controllers
         /// if posible show next avalible rooms
         /// </summary>
         /// <param name="input"></param>
-        private void roomInput(string input)
+        private void RoomInput(string input)
         {
             if (input == roomList[player.currentRoom].TextField)
             {
@@ -122,18 +122,34 @@ namespace Zork2.Controllers
             {
                 theStory.MyStory += ("you are a loser baby so why don't you kill me" + Environment.NewLine);
             }
-            else
+            else if(CanStapToRoom(input))
             {
                 foreach (Room element in roomList) //search for new room index and show next posible rooms
                 {
                     if (input == element.TextField)
                     {
-                        theStory.MyStory += ("where to next? -> " + posibleRoom(element.RoomNumber) + Environment.NewLine);
+                        theStory.MyStory += ("where to next? -> " + PosibleRoom(element.RoomNumber) + Environment.NewLine);
                         player.currentRoom = element.RoomNumber;
 
                     }
                 }
             }
+            else
+            {
+                theStory.MyStory += ("this move is not legal" + Environment.NewLine);
+            }
+        }
+
+        private bool CanStapToRoom(string input)
+        {
+            foreach(int element in roomList[player.currentRoom].nextRoom)
+            {
+                if(input == roomList[element].TextField)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void FillCommands()
@@ -160,9 +176,9 @@ namespace Zork2.Controllers
 
         public ActionResult Index(string input)
         {
-            setUpGame();
+            SetUpGame();
 
-            checkInput(input);
+            CheckInput(input);
 
             System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
             System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
