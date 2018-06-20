@@ -9,7 +9,7 @@ namespace Zork2.Models
     {
         
 
-        private int currentRoom { get; set; }
+        public int currentRoom { get; set; }
         private int totalHealth { get; set; }
         private int currentHealth { get; set; }
         public List<string> Item { get; set; }

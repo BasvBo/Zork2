@@ -9,25 +9,53 @@ namespace Zork2.Controllers
 {
     public class HomeController : Controller
     {
-        static Boolean firstSetup = false;
 
         static Story theStory = new Story();
 
+        Dictionary<string, string> Commands = new Dictionary<string, string>();
+
+
+        static Boolean firstSetup = false;
+
         static List<Room> roomList = new List<Room>();
 
-        int roomIndex;
+        static Player player = new Player(0, 5, 5, null);
 
 
+
+
+        /// <summary>
+        /// Setup is cald once to setup the game ande build the rooms
+        /// </summary>
+        private void setUpGame()
+        {
+            if (!firstSetup)
+            {
+                BuildRooms();
+
+                theStory.MyStory += (posibleRoom(roomList[0].RoomNumber) + Environment.NewLine);
+
+                firstSetup = true;
+            }
+        }
+
+        /// <summary>
+        /// Buids rooms befor games start
+        /// input = (int room number ,String nameroom, int[] next posible rooms)
+        /// </summary>
         private static void BuildRooms()
         {
-           
             roomList.Add(new Room(0, "start",new int[] { 1,2,3}));
             roomList.Add(new Room(1, "boom", new int[] { 0,2,3 }));
             roomList.Add(new Room(2, "huis", new int[] { 0,1,3 }));
             roomList.Add(new Room(3, "bos", new int[] { 0,1,2 }));
-
         }
 
+        /// <summary>
+        /// searches for next posible rooms, input = index for roomlist
+        /// </summary>
+        /// <param name="room"></param>
+        /// <returns></returns>
         private string posibleRoom(int room)
         {
             string roomName = "";
@@ -44,9 +72,50 @@ namespace Zork2.Controllers
             return roomName;
         }
 
+        /// <summary>
+        /// check what kind of input the player has given, input = string input from game
+        /// </summary>
+        /// <param name="input"></param>
+        private void checkInput(string input)
+        {
+            if (input != null)
+            {
+                // search if input is a room namen
+                foreach(Room element in roomList)
+                {
+                    if(input == element.TextField)
+                    {
+                        roomInput(input);
+                    }
+                }
 
-        Dictionary<string, string> Commands = new Dictionary<string, string>();
+            }
+        }
 
+        /// <summary>
+        /// If the input is a room name look to see if posible
+        /// if posible show next avalible rooms
+        /// </summary>
+        /// <param name="input"></param>
+        private void roomInput(string input)
+        {
+            if (input == roomList[player.currentRoom].TextField)
+            {
+                theStory.MyStory += ("You are already there" + Environment.NewLine);
+            }
+            else
+            {
+                foreach (Room element in roomList) //search for new room index and show next posible rooms
+                {
+                    if (input == element.TextField)
+                    {
+                        theStory.MyStory += (posibleRoom(element.RoomNumber) + Environment.NewLine);
+                        player.currentRoom = element.RoomNumber;
+
+                    }
+                }
+            }
+        }
 
         private void FillCommands()
         {
@@ -69,57 +138,21 @@ namespace Zork2.Controllers
             }
         }
 
+
         public ActionResult Index(string input)
         {
 
-            
+            setUpGame();
 
-            //init
-            if (!firstSetup)
-            {
-                BuildRooms();
-                roomIndex = 0;
-                firstSetup = true;
-                Player player = new Player(1,5,5,null);
+            checkInput(input);
 
-               // var Kamer = roomList[0].TextField;
-
-                theStory.MyStory += (posibleRoom(roomList[0].RoomNumber)+ Environment.NewLine);
-
-                //theStory.MyStory += (Kamer + Environment.NewLine);
-            }
-
-            System.Diagnostics.Debug.WriteLine("Input: " + input);
             System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
-
-            
-            if (input != null)
-            {
-
-                if (input == roomList[roomIndex].TextField)
-                {
-                    theStory.MyStory += "not posible";
-                }
-                else
-                { 
-                    foreach(Room element in roomList)
-                    {
-                        if (input == element.TextField)
-                        {
-                            roomIndex = element.RoomNumber;
-                            theStory.MyStory += (posibleRoom(element.RoomNumber) + roomIndex + Environment.NewLine);
-                        
-                        }
-                    }
-                    //theStory.MyStory += GetCommandText(input);
-                }
-            }
-
+            System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
 
             return View(theStory);
         }
 
-            public ActionResult About()
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
