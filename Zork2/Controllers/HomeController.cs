@@ -14,10 +14,10 @@ namespace Zork2.Controllers
 
         static Story theStory = new Story();
 
-        Dictionary<string, string> Commands = new Dictionary<string, string>();
+       // Dictionary<string, string> Commands = new Dictionary<string, string>();
 
 
-        static Boolean firstSetup = false;
+        private static Boolean firstSetup = false;
 
         static List<Room> roomList = new List<Room>();
 
@@ -33,6 +33,7 @@ namespace Zork2.Controllers
         {
             if (!firstSetup)
             {
+                System.Diagnostics.Debug.WriteLine("setup");
                 BuildRooms();
 
                 theStory.MyStory += (command.NextPosibleRoom(0, roomList) + Environment.NewLine);
@@ -72,17 +73,18 @@ namespace Zork2.Controllers
             string commandType;
             string possibleRooms;
             SetUpGame();
+            
 
             theStory.MyStory += ("input -> " + input + Environment.NewLine);
 
            
-            commandType = command.CheckCommand(input,roomList);
+            commandType = command.CheckCommand(input ,roomList);
             theStory.MyStory += ("Command Type -> "+ commandType + Environment.NewLine);
 
 
             if (commandType == "Room")
             {
-                possibleRooms = command.NextRoom(input, roomList, player);
+                possibleRooms = command.NextRoom(input.ToLower(), roomList, player);
                 theStory.MyStory += (possibleRooms + Environment.NewLine);
             }
 

@@ -18,7 +18,9 @@ namespace Zork2.Utils
                 // search if input is a room namen
                 foreach (Room element in roomList)
                 {
-                    if (input == element.TextField)
+
+                    if(string.Equals(input, element.TextField, StringComparison.OrdinalIgnoreCase))
+                   // if (input == element.TextField)
                     {
                         return "Room";
                     }
@@ -29,7 +31,7 @@ namespace Zork2.Utils
 
 
 
-
+            
         public string NextRoom(string input, List<Room> roomList, Player player)
         { 
             if (input == roomList[player.currentRoom].TextField)
