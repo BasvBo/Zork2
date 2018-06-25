@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Zork2.Models;
+using Zork2.Utils;
 
 namespace Zork2.Controllers
 {
     public class HomeController : Controller
     {
+        static Command command = new Command();
 
         static Story theStory = new Story();
 
@@ -33,7 +35,7 @@ namespace Zork2.Controllers
             {
                 BuildRooms();
 
-                theStory.MyStory += (PosibleRoom(roomList[0].RoomNumber) + Environment.NewLine);
+                theStory.MyStory += (command.NextPosibleRoom(0, roomList) + Environment.NewLine);
 
                 firstSetup = true;
             }
@@ -57,128 +59,32 @@ namespace Zork2.Controllers
             roomList.Add(new Room(9, "einde", new int[] { 8 }));
         }
 
-        /// <summary>
-        /// searches for next posible rooms, input = index for roomlist
-        /// </summary>
-        /// <param name="room"></param>
-        /// <returns></returns>
-        private string PosibleRoom(int room)
-        {
-            string roomName = "";
 
-            int[] roomIndex = roomList[room].nextRoom;
 
-            //Console.WriteLine(roomIndex);
 
-            foreach (int element in roomIndex)
-            {
-                roomName += roomList[element].TextField + ", ";
-            }
 
-            return roomName;
-        }
 
-        /// <summary>
-        /// check what kind of input the player has given, input = string input from game
-        /// </summary>
-        /// <param name="input"></param>
-        private void CheckInput(string input)
-        {
-            if (input != null)
-            {
-                bool inputIsRoom = false;
 
-                theStory.MyStory += ("input -> " + input + Environment.NewLine);
-
-                // search if input is a room namen
-                foreach (Room element in roomList)
-                {
-                    if(input == element.TextField)
-                    {
-                        inputIsRoom = true;
-                        RoomInput(input);
-                    }
-                }
-
-                if(inputIsRoom == false)
-                {
-                    theStory.MyStory += ("This is not a command" + Environment.NewLine);
-                }
-            }
-        }
-
-        /// <summary>
-        /// If the input is a room name look to see if posible
-        /// if posible show next avalible rooms
-        /// </summary>
-        /// <param name="input"></param>
-        private void RoomInput(string input)
-        {
-            if (input == roomList[player.currentRoom].TextField)
-            {
-                theStory.MyStory += ("You are already there" + Environment.NewLine);
-            }
-            else if(input == roomList[roomList.Count - 1].TextField)
-            {
-                theStory.MyStory += ("you are a loser baby so why don't you kill me" + Environment.NewLine);
-            }
-            else if(CanStapToRoom(input))
-            {
-                foreach (Room element in roomList) //search for new room index and show next posible rooms
-                {
-                    if (input == element.TextField)
-                    {
-                        theStory.MyStory += ("where to next? -> " + PosibleRoom(element.RoomNumber) + Environment.NewLine);
-                        player.currentRoom = element.RoomNumber;
-
-                    }
-                }
-            }
-            else
-            {
-                theStory.MyStory += ("this move is not legal" + Environment.NewLine);
-            }
-        }
-
-        private bool CanStapToRoom(string input)
-        {
-            foreach(int element in roomList[player.currentRoom].nextRoom)
-            {
-                if(input == roomList[element].TextField)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void FillCommands()
-        {
-            Commands.Add("poke", "Stop poking me, god dammit");
-            Commands.Add("dance", "You are making a fool of yourself");
-            Commands.Add("test", "this is a test");
-        }
-
-        private string GetCommandText(string input)
-        {
-            FillCommands();
-            if (Commands.ContainsKey(input))
-            {
-                var c = Commands[input];
-                return "<" + input + ">" + "\n" + c + "\n\n";
-            }
-            else
-            {
-                return "<" + input + ">" + "\nThis is not a command, for all commands see the Help page\n\n";
-            }
-        }
 
 
         public ActionResult Index(string input)
         {
+            string commandType;
+            string possibleRooms;
             SetUpGame();
 
-            CheckInput(input);
+            theStory.MyStory += ("input -> " + input + Environment.NewLine);
+
+           
+            commandType = command.CheckCommand(input,roomList);
+            theStory.MyStory += ("Command Type -> "+ commandType + Environment.NewLine);
+
+
+            if (commandType == "Room")
+            {
+                possibleRooms = command.NextRoom(input, roomList, player);
+                theStory.MyStory += (possibleRooms + Environment.NewLine);
+            }
 
             System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
             System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
