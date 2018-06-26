@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Zork2.Models;
+using Zork2.Repository;
 using Zork2.Utils;
 
 namespace Zork2.Controllers
@@ -16,12 +17,11 @@ namespace Zork2.Controllers
 
        // Dictionary<string, string> Commands = new Dictionary<string, string>();
 
-
         private static Boolean firstSetup = false;
 
         static List<Room> roomList = new List<Room>();
 
-        static Player player = new Player(0, 5, 5, null);
+        //static Player player = new Player(0, 5, 5, null);
 
 
 
@@ -35,8 +35,10 @@ namespace Zork2.Controllers
             {
                 System.Diagnostics.Debug.WriteLine("setup");
                 BuildRooms();
+                PlayerRepository.CreatPlayer("ebrt");
 
                 theStory.MyStory += (command.NextPosibleRoom(0, roomList) + Environment.NewLine);
+                
 
                 firstSetup = true;
             }
@@ -62,35 +64,33 @@ namespace Zork2.Controllers
 
 
 
-
-
-
-
-
-
         public ActionResult Index(string input)
         {
             string commandType;
             string possibleRooms;
+
             SetUpGame();
             
+            //show input
+            theStory.MyStory += ("Input -> " + input + Environment.NewLine);
 
-            theStory.MyStory += ("input -> " + input + Environment.NewLine);
-
-           
+            //decipher input
             commandType = command.CheckCommand(input ,roomList);
             theStory.MyStory += ("Command Type -> "+ commandType + Environment.NewLine);
 
-
+            //go to room and show next posible rooms
             if (commandType == "Room")
             {
                 possibleRooms = command.NextRoom(input.ToLower(), roomList, player);
                 theStory.MyStory += (possibleRooms + Environment.NewLine);
             }
 
+            //show input and output on system log
             System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
             System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
 
+
+            theStory.MyStory += ( Environment.NewLine);
             return View(theStory);
         }
 

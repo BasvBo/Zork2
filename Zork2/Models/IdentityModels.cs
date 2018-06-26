@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Zork2.Utils;
 
 namespace Zork2.Models
 {
@@ -20,6 +21,11 @@ namespace Zork2.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+      // public DbSet<Player> Players { get; set; }
+       public DbSet<Story> Stories { get; set; }
+       //public DbSet<Command> Commands { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

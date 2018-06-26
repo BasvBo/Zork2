@@ -18,9 +18,7 @@ namespace Zork2.Utils
                 // search if input is a room namen
                 foreach (Room element in roomList)
                 {
-
                     if(string.Equals(input, element.TextField, StringComparison.OrdinalIgnoreCase))
-                   // if (input == element.TextField)
                     {
                         return "Room";
                     }
@@ -34,35 +32,35 @@ namespace Zork2.Utils
             
         public string NextRoom(string input, List<Room> roomList, Player player)
         { 
+            //if input is same room
             if (input == roomList[player.currentRoom].TextField)
             {
                 return "You are already there";
             }
+            //if input is final room
             else if (input == roomList[roomList.Count - 1].TextField)
             {
                 return "you are a loser baby so why don't you kill me";
             }
+            //if input is different room  
             else if (CanStapToRoom(input, roomList,player))
             {
-                foreach (Room element in roomList) //search for new room index and show next posible rooms
+                //search for new room index and show next posible rooms
+                foreach (Room element in roomList) 
                 {
                     if (input == element.TextField)
                     {
+                        //set location player to new room and return next posible rooms
                         player.currentRoom = element.RoomNumber;
                         return "where to next? -> "+ NextPosibleRoom(element.RoomNumber, roomList);
-                    }
-                    
+                    }  
                 }
             }
-            else
-            {
-                return "this move is not legal";
-            }
-            return "";
+            return "this move is not legal";
         }
 
 
-
+        //check if it is posible to step to the room from current location
         private bool CanStapToRoom(string input, List<Room> roomList, Player player)
         {
             foreach (int element in roomList[player.currentRoom].nextRoom)
