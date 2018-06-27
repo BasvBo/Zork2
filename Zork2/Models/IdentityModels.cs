@@ -22,18 +22,22 @@ namespace Zork2.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
-      // public DbSet<Player> Players { get; set; }
-       public DbSet<Story> Stories { get; set; }
-       //public DbSet<Command> Commands { get; set; }
 
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext(): base("DefaultConnection", throwIfV1Schema: false)
         {
+            //Database.SetInitializer<ApplicationDbContext>(new CreateDatabaseIfNotExists<ApplicationDbContext>());
+
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+
+        public DbSet<Player> Players { get; set; }
+        //public DbSet<Story> Stories { get; set; }
+        //public DbSet<Command> Commands { get; set; }
     }
 }

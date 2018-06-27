@@ -22,6 +22,7 @@ namespace Zork2.Controllers
         static List<Room> roomList = new List<Room>();
 
         //static Player player = new Player(0, 5, 5, null);
+        PlayerRepository playerRepository = new PlayerRepository(); 
 
 
 
@@ -29,13 +30,13 @@ namespace Zork2.Controllers
         /// <summary>
         /// Setup is cald once to setup the game ande build the rooms
         /// </summary>
-        private void SetUpGame()
+        public void SetUpGame()
         {
             if (!firstSetup)
             {
                 System.Diagnostics.Debug.WriteLine("setup");
                 BuildRooms();
-                PlayerRepository.CreatPlayer("ebrt");
+                playerRepository.CreatPlayer("ebrt");
 
                 theStory.MyStory += (command.NextPosibleRoom(0, roomList) + Environment.NewLine);
                 
@@ -81,7 +82,7 @@ namespace Zork2.Controllers
             //go to room and show next posible rooms
             if (commandType == "Room")
             {
-                possibleRooms = command.NextRoom(input.ToLower(), roomList, player);
+                possibleRooms = command.NextRoom(input.ToLower(), roomList, playerRepository);
                 theStory.MyStory += (possibleRooms + Environment.NewLine);
             }
 

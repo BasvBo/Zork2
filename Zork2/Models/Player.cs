@@ -7,18 +7,24 @@ namespace Zork2.Models
 {
     public class Player
     {
-        
 
-        public int currentRoom { get; set; }
-        public int totalHealth { get; set; }
-        public int currentHealth { get; set; }
+        public int PlayerId { get; set; }
+        public String NamePlayer { get; set; }
+        public int CurrentRoom { get; set; }
+        public int TotalHealth { get; set; }
+        public int CurrentHealth { get; set; }
         public List<string> Item { get; set; }
 
-        public Player(int currentRoom, int totalHealth, int currentHealth, List<string> item)
+
+        public Player() { }
+
+        public Player(string namePlayer, int currentRoom, int totalHealth, int currentHealth, List<string> item)
         {
-            this.currentRoom = currentRoom;
-            this.totalHealth = totalHealth;
-            this.currentHealth = currentHealth;
+
+            NamePlayer = NamePlayer;
+            CurrentRoom = currentRoom;
+            TotalHealth = totalHealth;
+            CurrentHealth = currentHealth;
             Item = item;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Zork2.Models;
+using Zork2.Repository;
 
 namespace Zork2.Utils
 {
@@ -30,10 +31,10 @@ namespace Zork2.Utils
 
 
             
-        public string NextRoom(string input, List<Room> roomList, Player player)
+        public string NextRoom(string input, List<Room> roomList, PlayerRepository player)
         { 
             //if input is same room
-            if (input == roomList[player.currentRoom].TextField)
+            if (input == roomList[player.GetPlayerLocation(1)].TextField)
             {
                 return "You are already there";
             }
@@ -51,7 +52,7 @@ namespace Zork2.Utils
                     if (input == element.TextField)
                     {
                         //set location player to new room and return next posible rooms
-                        player.currentRoom = element.RoomNumber;
+                        player.SetPlayerLocation(1,element.RoomNumber);
                         return "where to next? -> "+ NextPosibleRoom(element.RoomNumber, roomList);
                     }  
                 }
@@ -61,9 +62,9 @@ namespace Zork2.Utils
 
 
         //check if it is posible to step to the room from current location
-        private bool CanStapToRoom(string input, List<Room> roomList, Player player)
+        private bool CanStapToRoom(string input, List<Room> roomList, PlayerRepository player)
         {
-            foreach (int element in roomList[player.currentRoom].nextRoom)
+            foreach (int element in roomList[player.GetPlayerLocation(1)].nextRoom)
             {
                 if (input == roomList[element].TextField)
                 {
