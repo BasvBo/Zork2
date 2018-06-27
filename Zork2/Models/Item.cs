@@ -8,10 +8,10 @@ namespace Zork2.Models
     public class Item
     {
 
-
-        private string Name { get; set; }
-        private bool Used { get; set; }
-        private int Number { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public bool Used { get; set; }
+        public int Number { get; set; }
 
         public Item(string name, bool used, int number)
         {

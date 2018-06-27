@@ -8,7 +8,7 @@ namespace Zork2.Models
     public class Player
     {
 
-        public int PlayerId { get; set; }
+        public int Id { get; set; }
         public String NamePlayer { get; set; }
         public int CurrentRoom { get; set; }
         public int TotalHealth { get; set; }
@@ -21,7 +21,7 @@ namespace Zork2.Models
         public Player(string namePlayer, int currentRoom, int totalHealth, int currentHealth, List<string> item)
         {
 
-            NamePlayer = NamePlayer;
+            NamePlayer = namePlayer;
             CurrentRoom = currentRoom;
             TotalHealth = totalHealth;
             CurrentHealth = currentHealth;

@@ -36,7 +36,8 @@ namespace Zork2.Controllers
             {
                 System.Diagnostics.Debug.WriteLine("setup");
                 BuildRooms();
-                playerRepository.CreatPlayer("ebrt");
+
+                playerRepository.CreatPlayer("bassie");
 
                 theStory.MyStory += (command.NextPosibleRoom(0, roomList) + Environment.NewLine);
                 
@@ -64,31 +65,31 @@ namespace Zork2.Controllers
         }
 
 
-
         public ActionResult Index(string input)
         {
             string commandType;
             string possibleRooms;
 
             SetUpGame();
+
+                //show input
+                theStory.MyStory += ("Input -> " + input + Environment.NewLine);
+
+                //decipher input
+                commandType = command.CheckCommand(input, roomList);
+                theStory.MyStory += ("Command Type -> " + commandType + Environment.NewLine);
+
+                //go to room and show next posible rooms
+                if (commandType == "Room")
+                {
+                    possibleRooms = command.NextRoom(input.ToLower(), roomList, playerRepository);
+                    theStory.MyStory += (possibleRooms + Environment.NewLine);
+                }
+
+                //show input and output on system log
+                System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
+                System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
             
-            //show input
-            theStory.MyStory += ("Input -> " + input + Environment.NewLine);
-
-            //decipher input
-            commandType = command.CheckCommand(input ,roomList);
-            theStory.MyStory += ("Command Type -> "+ commandType + Environment.NewLine);
-
-            //go to room and show next posible rooms
-            if (commandType == "Room")
-            {
-                possibleRooms = command.NextRoom(input.ToLower(), roomList, playerRepository);
-                theStory.MyStory += (possibleRooms + Environment.NewLine);
-            }
-
-            //show input and output on system log
-            System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
-            System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
 
 
             theStory.MyStory += ( Environment.NewLine);

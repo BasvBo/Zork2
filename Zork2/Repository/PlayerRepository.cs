@@ -12,7 +12,7 @@ namespace Zork2.Repository
         public void CreatPlayer(String name)
         {
 
-             var player = new Player(name, 0, 5, 5, null);
+            var player = new Player(name, 0, 5, 5, null);
 
             using (var context = ApplicationDbContext.Create())
             {
@@ -30,7 +30,7 @@ namespace Zork2.Repository
             {
                 var player = context.Players.Single(p => p.NamePlayer == name);
                 
-                return player.PlayerId;
+                return player.Id;
             }
            
         }
@@ -40,7 +40,7 @@ namespace Zork2.Repository
         {
             using (var context = ApplicationDbContext.Create())
             {
-                var player = context.Players.Single(p => p.PlayerId == id);
+                var player = context.Players.Single(p => p.Id == id);
 
                 return player.CurrentRoom;
             }

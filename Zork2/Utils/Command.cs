@@ -34,7 +34,7 @@ namespace Zork2.Utils
         public string NextRoom(string input, List<Room> roomList, PlayerRepository player)
         { 
             //if input is same room
-            if (input == roomList[player.GetPlayerLocation(1)].TextField)
+            if (input == roomList[player.GetPlayerLocation(0)].TextField)
             {
                 return "You are already there";
             }
@@ -64,7 +64,7 @@ namespace Zork2.Utils
         //check if it is posible to step to the room from current location
         private bool CanStapToRoom(string input, List<Room> roomList, PlayerRepository player)
         {
-            foreach (int element in roomList[player.GetPlayerLocation(1)].nextRoom)
+            foreach (int element in roomList[player.GetPlayerLocation(1)].NextRoom)
             {
                 if (input == roomList[element].TextField)
                 {
@@ -81,7 +81,7 @@ namespace Zork2.Utils
         {
             string roomName = "";
 
-            int[] roomIndex = roomList[room].nextRoom;
+            int[] roomIndex = roomList[room].NextRoom;
 
             foreach (int element in roomIndex)
             {
