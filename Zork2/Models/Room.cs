@@ -12,14 +12,14 @@ namespace Zork2.Models
         {
             RoomNumber = roomNumber;
             TextField = textField;
-            this.nextRoom = nextRoom;
+            NextRoom = nextRoom;
         }
 
         public int RoomNumber { get; set; }
 
         public string TextField { get; set; }
 
-        public int[] nextRoom { get; set; }
+        public int[] NextRoom { get; set; }
 
       //  public List<string> Options { get; set; }
         
