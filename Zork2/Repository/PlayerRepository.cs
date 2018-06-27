@@ -12,13 +12,13 @@ namespace Zork2.Repository
         public void CreatPlayer(String name)
         {
 
-            var player = new Player(name, 0, 5, 5, null);
+            var player = new Player(name);
 
             using (var context = ApplicationDbContext.Create())
             {
 
-                context.Players.Add(player); // adds the player to the DbSet in memory
-                context.SaveChanges(); // commits the changes to the database
+                context.Players.Add(player); 
+                context.SaveChanges(); 
             }
         }
 
@@ -52,9 +52,9 @@ namespace Zork2.Repository
         {
             using (var context = ApplicationDbContext.Create())
             {
-                var player = context.Players.Find(id); // retrieve the entity
-                player.CurrentRoom = room; // amend properties
-                context.SaveChanges(); // commit the changes
+                var player = context.Players.Find(id); 
+                player.CurrentRoom = room; 
+                context.SaveChanges(); 
             }
         }
 
