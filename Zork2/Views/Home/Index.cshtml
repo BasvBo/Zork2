@@ -1,18 +1,62 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="~/content/Home.css" type="text/css" />
+
+<div id="contentHolder">
+    <pre class="textHolder">
+       @Model.MyStory
+
+    </pre>
 
 
-<pre>
-@Model.MyStory
 
-</pre>
+    <div id="Player">
 
 
+    </div>
 
-<div >
-    <form action='@Url.Action("Index","Home")' method="post" autocomplete="off">
-        <button type="submit" id="sendBtn" class="btn btn-primary">Send</button>
-        <input id="inputField" name="input" type="text" class="form-control" autofocus />
-    </form>
+    <div id="Map">
+        <div class="row">
+            <div class="column">
+                <img src="~/Content/Images/img002.png">
+                <img src="~/Content/Images/img003.png">
+                <img src="~/Content/Images/img004.png">
+                <img src="~/Content/Images/img002.png">
+                
+            </div>
+            <div class="column">
+                <img src="~/Content/Images/img002.png">
+                <img src="~/Content/Images/img003.png">
+                <img src="~/Content/Images/img004.png">
+                <img src="~/Content/Images/img002.png">
+            </div>
+            <div class="column">
+                <img src="~/Content/Images/img002.png">
+                <img src="~/Content/Images/img003.png">
+                <img src="~/Content/Images/img004.png">
+                <img src="~/Content/Images/img002.png">
+            </div>
+            <div class="column">
+                <img src="~/Content/Images/img002.png">
+                <img src="~/Content/Images/img003.png">
+                <img src="~/Content/Images/img004.png">
+                <img src="~/Content/Images/img002.png">
+            </div>
+        </div>
+
+    </div>
+
+    <div id="inputHolder">
+        <form action='@Url.Action("Index","Home")' method="post" autocomplete="off">
+            <button type="submit" id="sendBtn" class="btn btn-primary">Send</button>
+            <input id="inputField" name="input" type="text" class="form-control" autofocus />
+        </form>
+    </div>
 </div>
+
+<script type='text/javascript' src='~/Scripts/scr.js'></script>

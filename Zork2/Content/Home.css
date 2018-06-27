@@ -1,0 +1,50 @@
+﻿
+#inputField {
+    float: left;
+}
+
+    background-color: black;
+    width: 60%;
+    height: 400px;
+    overflow: auto;
+    float: left;
+    position: relative;
+    color: white;
+}
+
+#Map {
+    width: 40%;
+    height: 400px;
+    float: Right;
+    background-color: orange;
+}
+
+#textPrint {
+    color: white;
+}
+
+#interfaceHolder {
+    width: 100%;
+    float: left;
+    position: relative;
+   
+}
+
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  
+}
+
+    .column img {
+        
+        max-width: 100%;
+        vertical-align: middle;
+    }
