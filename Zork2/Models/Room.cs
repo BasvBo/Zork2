@@ -21,12 +21,7 @@ namespace Zork2.Models
 
         public int[] nextRoom { get; set; }
 
-        public List<string> Options { get; set; }
+      //  public List<string> Options { get; set; }
         
-
-
-
-
-        // maak functie voor add List to Room
     }
 }
