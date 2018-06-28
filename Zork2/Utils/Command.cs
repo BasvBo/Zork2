@@ -10,21 +10,19 @@ namespace Zork2.Utils
     public class Command
     {
 
-
+        Initialisation initialisation = new Initialisation();
 
         public string CheckCommand(string input, List<Room> roomList)
         {
-            if (input != null)
-            {
-                // search if input is a room namen
-                foreach (Room element in roomList)
+             // search if input is a room namen
+             foreach (Room element in roomList)
+             {
+                if(string.Equals(input, element.TextField, StringComparison.OrdinalIgnoreCase))
                 {
-                    if(string.Equals(input, element.TextField, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return "Room";
-                    }
+                    return "Room";
                 }
-            }
+             }
+
             return "This is not a command";
         }
 
@@ -34,7 +32,7 @@ namespace Zork2.Utils
         public string NextRoom(string input, List<Room> roomList, PlayerRepository player)
         { 
             //if input is same room
-            if (input == roomList[player.GetPlayerLocation(0)].TextField)
+            if (input == roomList[player.GetPlayerLocation(1)].TextField)
             {
                 return "You are already there";
             }

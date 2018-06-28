@@ -214,7 +214,7 @@
     <Compile Include="Repository\PlayerRepository.cs" />
     <Compile Include="Repository\RoomRepository.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\Initialize.cs" />
+    <Compile Include="Utils\Initialisation.cs" />
     <Compile Include="Utils\Command.cs" />
   </ItemGroup>
   <ItemGroup>

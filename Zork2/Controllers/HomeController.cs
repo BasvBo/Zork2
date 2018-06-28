@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,61 +12,32 @@ namespace Zork2.Controllers
 {
     public class HomeController : Controller
     {
-        static Command command = new Command();
 
         static Story theStory = new Story();
 
-       // Dictionary<string, string> Commands = new Dictionary<string, string>();
 
-        private static Boolean firstSetup = false;
 
         static List<Room> roomList = new List<Room>();
 
  
-        PlayerRepository playerRepository = new PlayerRepository(); 
-
-
-
-
-        public void SetUpGame()
-        {
-            if (!firstSetup)
-            {
-                System.Diagnostics.Debug.WriteLine("setup");
-                BuildRooms();
-
-                playerRepository.CreatPlayer("bassie");
-
-                theStory.MyStory += (command.NextPosibleRoom(0, roomList) + Environment.NewLine);
-                
-
-                firstSetup = true;
-            }
-        }
-
-
-        
-
-        private static void BuildRooms()
-        {
-            roomList.Add(new Room(0, "start",new int[] { 1,2,3}));
-            roomList.Add(new Room(1, "boom", new int[] { 0,2,3 }));
-            roomList.Add(new Room(2, "huis", new int[] { 0,1,3 }));
-            roomList.Add(new Room(3, "bos", new int[] { 1,2,4 }));
-            roomList.Add(new Room(4, "kat", new int[] { 3, 5 }));
-            roomList.Add(new Room(5, "sloot", new int[] { 4, 6, 7 }));
-            roomList.Add(new Room(6, "berg", new int[] { 5, 8 }));
-            roomList.Add(new Room(7, "put", new int[] { 5, 8 }));
-            roomList.Add(new Room(8, "strand", new int[] { 7, 6, 9 }));
-            roomList.Add(new Room(9, "einde", new int[] { 8 }));
-        }
+        PlayerRepository playerRepository = new PlayerRepository();
+        GameController gameController = new GameController();
 
 
 
 
 
+        [Authorize]
         public ActionResult Index(string input)
         {
+            var id = User.Identity.GetUserId();
+
+
+
+            theStory.MyStory += ("Input -> " + input + Environment.NewLine);
+            theStory.MyStory += gameController.GameManager(input,id)+ Environment.NewLine;
+
+    /*
             string commandType;
             string possibleRooms;
 
@@ -89,7 +61,7 @@ namespace Zork2.Controllers
                 System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
                 System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
             
-
+    */
 
             theStory.MyStory += ( Environment.NewLine);
             return View(theStory);
