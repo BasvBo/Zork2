@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Zork2.Controllers;
 using Zork2.Models;
 using Zork2.Repository;
 
@@ -10,8 +11,7 @@ namespace Zork2.Utils
     public class Initialisation: PlayerRepository
     {
 
-
-
+       
 
         public string PlayerSetup(string input, string id)
         {
@@ -23,7 +23,7 @@ namespace Zork2.Utils
             {
                 CreatPlayer(input, id);
 
-                return "Your name has been set, Lets play!!";
+                return "set"; 
             }
             
         }

@@ -20,36 +20,49 @@ namespace Zork2.Controllers
 
         public string GameManager(string input, string id)
         {
-            var PlayerId = playerRepository.GetPlayerById(id);
 
-            BuildRooms();
 
-            if (input == null)
+            //only runs on start up & player exists
+            if (input == null && playerRepository.GetPlayerById(id) != 0)
             {
-                return ("Pleas type a valid command " + playerRepository.GetPlayerNameById(id));
+                BuildRooms();
+                return ("Pleas type a valid command " + playerRepository.GetPlayerNameById(id) 
+                    + Environment.NewLine + "What would you like to do? get 'location' info or 'move'");
             }
 
-            //if ID is not fout Creat and Link player to accound
-            if (PlayerId == 0)
-            {             
-                return initalisation.PlayerSetup(input, id);  
+
+            //if ID is not found Creat and Link player to accound
+            if (playerRepository.GetPlayerById(id) == 0)
+            {   
+                var iets = initalisation.PlayerSetup(input, id);
+                if (iets == "set")
+                {
+                    BuildRooms();
+                    return "Your name has been set " + input + ", Lets play!!"
+                        + Environment.NewLine + "What would you like to do? get 'location' info or 'move'";
+                }
+                return iets;
+                
             }
+
+
 
             //if input is equal change comand state player
-            if(input == "location"| input == "move")
+            if (input == "location"| input == "move")
             {
                 //set command type of the player 
                 return "set command type and return options";
             }
 
+
+            //if command state is set check input is ok
             if(playerRepository.GetPayerCommandState(id) != "")
             {
                 return "i need to go to command controller";
             }
-            else
-            {
-                return "What would you like to do? get 'location' or 'move'";
-            }
+
+            return "What would you like to do? get 'location' info or 'move'";
+            
 
            // var commandType1 = command.CheckCommand(input,roomList);
 
@@ -59,7 +72,7 @@ namespace Zork2.Controllers
         }
 
 
-        private void BuildRooms()
+        public void BuildRooms()
         {
             roomList.Add(new Room(0, "start", new int[] { 1, 2, 3 }));
             roomList.Add(new Room(1, "boom", new int[] { 0, 2, 3 }));

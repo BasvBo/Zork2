@@ -30,11 +30,15 @@ namespace Zork2.Controllers
         [Authorize]
         public ActionResult Index(string input)
         {
+            //get ID of currend user
             var id = User.Identity.GetUserId();
 
-
-
-            theStory.MyStory += ("Input -> " + input + Environment.NewLine);
+            
+            if (input != null)
+            {
+                theStory.MyStory += ("Input -> " + input + Environment.NewLine);
+            }
+            
             theStory.MyStory += gameController.GameManager(input,id)+ Environment.NewLine;
 
     /*
