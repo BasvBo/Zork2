@@ -10,6 +10,7 @@ namespace Zork2.Controllers
 {
     public class GameController
     {
+        CommandController commandController = new CommandController();
         PlayerRepository playerRepository = new PlayerRepository();
         Initialisation initalisation = new Initialisation();
         Command command = new Command();
@@ -46,29 +47,23 @@ namespace Zork2.Controllers
             }
 
 
-
             //if input is equal change comand state player
             if (input == "location"| input == "move")
             {
-                //set command type of the player 
-                return "set command type and return options";
+                return commandController.ChangeCommandTyp(input, id,roomList);  
             }
 
 
             //if command state is set check input is ok
-            if(playerRepository.GetPayerCommandState(id) != "")
+            if(playerRepository.GetPlayerCommandState(id) != "")
             {
-                return "i need to go to command controller";
+                //if command typ is set check if input is valid command
+                return commandController.ValidateCommand(input, id, roomList);
+                
             }
 
             return "What would you like to do? get 'location' info or 'move'";
             
-
-           // var commandType1 = command.CheckCommand(input,roomList);
-
-           // return commandType1;
-
-
         }
 
 

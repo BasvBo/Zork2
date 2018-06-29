@@ -11,6 +11,7 @@ namespace Zork2.Utils
     {
 
         Initialisation initialisation = new Initialisation();
+        PlayerRepository playerRepository = new PlayerRepository();
 
         public string CheckCommand(string input, List<Room> roomList)
         {
@@ -29,10 +30,10 @@ namespace Zork2.Utils
 
 
             
-        public string NextRoom(string input, List<Room> roomList, PlayerRepository player)
+        public string NextRoom(string input, string id, List<Room> roomList)
         { 
             //if input is same room
-            if (input == roomList[player.GetPlayerLocation(1)].TextField)
+            if (input == roomList[playerRepository.GetPlayerLocation(id)].TextField)
             {
                 return "You are already there";
             }
@@ -41,28 +42,26 @@ namespace Zork2.Utils
             {
                 return "you are a loser baby so why don't you kill me";
             }
-            //if input is different room  
-            else if (CanStapToRoom(input, roomList,player))
+             
+             //search for new room index and show next posible rooms
+            foreach (Room element in roomList)
             {
-                //search for new room index and show next posible rooms
-                foreach (Room element in roomList) 
-                {
-                    if (input == element.TextField)
-                    {
-                        //set location player to new room and return next posible rooms
-                        player.SetPlayerLocation(1,element.RoomNumber);
-                        return "where to next? -> "+ NextPosibleRoom(element.RoomNumber, roomList);
-                    }  
-                }
+              if (input == element.TextField)
+              {
+               //set location player to new room and return next posible rooms
+                 playerRepository.SetPlayerLocation(1,element.RoomNumber);
+                 return "where to next? -> "+ NextPosibleRoom(element.RoomNumber, roomList);
+              }
             }
+
             return "this move is not legal";
         }
 
 
         //check if it is posible to step to the room from current location
-        private bool CanStapToRoom(string input, List<Room> roomList, PlayerRepository player)
+        public bool CanStapToRoom(string input, string id, List<Room> roomList)
         {
-            foreach (int element in roomList[player.GetPlayerLocation(1)].NextRoom)
+            foreach (int element in roomList[playerRepository.GetPlayerLocation(id)].NextRoom)
             {
                 if (input == roomList[element].TextField)
                 {

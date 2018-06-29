@@ -33,7 +33,7 @@ namespace Zork2.Controllers
             //get ID of currend user
             var id = User.Identity.GetUserId();
 
-            
+           
             if (input != null)
             {
                 theStory.MyStory += ("Input -> " + input + Environment.NewLine);
@@ -41,31 +41,7 @@ namespace Zork2.Controllers
             
             theStory.MyStory += gameController.GameManager(input,id)+ Environment.NewLine;
 
-    /*
-            string commandType;
-            string possibleRooms;
 
-            SetUpGame();
-
-                //show input
-                theStory.MyStory += ("Input -> " + input + Environment.NewLine);
-
-                //decipher input
-                commandType = command.CheckCommand(input, roomList);
-                theStory.MyStory += ("Command Type -> " + commandType + Environment.NewLine);
-
-                //go to room and show next posible rooms
-                if (commandType == "Room")
-                {
-                    possibleRooms = command.NextRoom(input.ToLower(), roomList, playerRepository);
-                    theStory.MyStory += (possibleRooms + Environment.NewLine);
-                }
-
-                //show input and output on system log
-                System.Diagnostics.Debug.WriteLine("Story: " + theStory.MyStory);
-                System.Diagnostics.Debug.WriteLine("Input: " + input + Environment.NewLine);
-            
-    */
 
             theStory.MyStory += ( Environment.NewLine);
             return View(theStory);

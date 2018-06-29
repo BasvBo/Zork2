@@ -52,11 +52,11 @@ namespace Zork2.Repository
         }
 
 
-        public int GetPlayerLocation(int id)
+        public int GetPlayerLocation(string id)
         {
             using (var context = ApplicationDbContext.Create())
             {
-                var player = context.Players.Single(p => p.Id == id);
+                var player = context.Players.Single(p => p.UserId == id);
 
                 return player.CurrentRoom;
             }
@@ -75,13 +75,24 @@ namespace Zork2.Repository
         }
 
 
-        public string GetPayerCommandState(string id)
+        public string GetPlayerCommandState(string id)
         {
             using (var context = ApplicationDbContext.Create())
             {
                 var player = context.Players.Single(p => p.UserId == id);
 
                 return player.CommandState;
+            }
+        }
+
+
+        public void SetPlayerCommandState(string input, int id)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.Find(id);
+                player.CommandState = input;
+                context.SaveChanges();
             }
         }
 
