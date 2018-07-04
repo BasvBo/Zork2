@@ -12,15 +12,6 @@ namespace Zork2.Models
         private const int startHealth = 5;
         private const string initialCommandType = "";
 
-        public int Id { get; set; }
-        public string UserId { get; set; } //LET OP
-        public String NamePlayer { get; set; }
-        public int CurrentRoom { get; set; }
-        public int TotalHealth { get; set; }
-        public int CurrentHealth { get; set; }
-        public string CommandState { get; set; }
-        public List<string> Items { get; set; }
-
 
         public Player() { }
 
@@ -33,6 +24,19 @@ namespace Zork2.Models
             CurrentHealth = startHealth;
             CommandState = initialCommandType;
         }
+
+
+
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public String NamePlayer { get; set; }
+        public int CurrentRoom { get; set; }
+        public int TotalHealth { get; set; }
+        public int CurrentHealth { get; set; }
+        public string CommandState { get; set; }
+       // public List<string> Items { get; set; }
+
+
 
       
 
