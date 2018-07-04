@@ -14,15 +14,14 @@ namespace Zork2.Controllers
         RoomRepository roomRepository = new RoomRepository();
         Command command = new Command();
 
+        
         public string ChangeCommandTyp(string input, string userId)
         {
             var playerTableId = playerRepository.GetPlayerById(userId);
 
             if (input == "location")
             {
-                //set command typ to location
                 playerRepository.SetPlayerCommandState(input, playerTableId);
-                //send back current location
                 var currendLocation = playerRepository.GetPlayerLocation(userId);
                 
                 return ("Currend Location is -> " + roomRepository.GetRoomName(currendLocation));
@@ -30,11 +29,8 @@ namespace Zork2.Controllers
 
             if (input == "move")
             {
-                //set command type to move
                 playerRepository.SetPlayerCommandState(input, playerTableId);
-                //send back posible move's
                 var currendLocation = playerRepository.GetPlayerLocation(userId);
-
                 var possibelmoves = command.NextPosibleRoom(currendLocation);
 
                 return ("possible movements are -> " + possibelmoves);
@@ -48,7 +44,7 @@ namespace Zork2.Controllers
         {
 
             var currentComandState = playerRepository.GetPlayerCommandState(userId);
-            string commandType = command.CheckCommand(input);
+            string commandType = command.CheckCommand(input.ToLower());
 
             if(currentComandState == "move" && commandType == "Room")
             {
@@ -63,7 +59,7 @@ namespace Zork2.Controllers
         {
             if (commandType == "Room")
             {
-               return MoveRoom(input, userId);
+               return MoveRoom(input.ToLower(), userId);
             }
 
             return "Not a valid command";
