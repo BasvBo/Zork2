@@ -96,6 +96,16 @@ namespace Zork2.Repository
             }
         }
 
+        public void SetPickUpItem(string input, int id)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.Find(id);
+                player.Items = input;
+                context.SaveChanges();
+            }
+        }
+
 
         public void DeletePlayer(String name)
         {

@@ -9,11 +9,13 @@ namespace Zork2.Models
     {
         public Room() { }
 
-        public Room(int roomNumber, string roomName, string adjacentRoom)
+        public Room(int roomNumber, string roomName, string adjacentRoom, string pickUpItems, string unlockItem)
         {
             RoomNumber = roomNumber;
             RoomName = roomName;
             AdjacentRoom = adjacentRoom;
+            PickUpItems = pickUpItems;
+            UnlockItem = unlockItem;
         }
 
 
@@ -22,6 +24,8 @@ namespace Zork2.Models
         public int RoomNumber { get; set; }
         public string RoomName { get; set; }
         public string AdjacentRoom { get; set; }
+        public string PickUpItems { get; set; }
+        public string UnlockItem { get; set; }
 
 
 

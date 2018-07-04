@@ -36,6 +36,15 @@ namespace Zork2.Controllers
                 return ("possible movements are -> " + possibelmoves);
             }
 
+            if (input == "pickup")
+            {
+                playerRepository.SetPlayerCommandState(input, playerTableId);
+                var currendLocation = playerRepository.GetPlayerLocation(userId);
+                var possibleItems = roomRepository.GetPickupItems(currendLocation);
+
+                return ("pickup items are -> "+ string.Join(",",possibleItems));
+            }
+
             return "Not valid Command Change Type";
         }
 
@@ -44,11 +53,16 @@ namespace Zork2.Controllers
         {
 
             var currentComandState = playerRepository.GetPlayerCommandState(userId);
-            string commandType = command.CheckCommand(input.ToLower());
+            string commandType = command.CheckCommand(input.ToLower(),userId);
 
             if(currentComandState == "move" && commandType == "Room")
             {
                 return "Room";
+            }
+
+            if(currentComandState == "pickup" && commandType == "Item")
+            {
+                return "Item";
             }
 
             return "false";
@@ -60,6 +74,12 @@ namespace Zork2.Controllers
             if (commandType == "Room")
             {
                return MoveRoom(input.ToLower(), userId);
+            }
+
+            if (commandType == "Item")
+            {
+
+                return PickUpTheItem(input,userId);
             }
 
             return "Not a valid command";
@@ -76,6 +96,15 @@ namespace Zork2.Controllers
             }
 
             return "Can not move to this room";
+        }
+
+        public string PickUpTheItem(string input, string userId)
+        {
+
+            var playerIntId = playerRepository.GetPlayerById(userId);
+            playerRepository.SetPickUpItem(input, playerIntId);
+
+            return ("You have picked up a -> " + input);
         }
     }
 }

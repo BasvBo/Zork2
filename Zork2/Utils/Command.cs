@@ -16,13 +16,20 @@ namespace Zork2.Utils
 
 
 
-        public string CheckCommand(string input)
+        public string CheckCommand(string input,string playerId)
         {
             // search if input is a room namen
             if (roomRepository.IsRoomName(input))
             {
                 return "Room";
             }
+
+            var currentLocation = playerRepository.GetPlayerLocation(playerId);
+            if (roomRepository.IsPickupItem(input, currentLocation))
+            {
+                return "Item";
+            }
+
             return "This is not a command";
         }
 
