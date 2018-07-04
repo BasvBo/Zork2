@@ -64,11 +64,11 @@ namespace Zork2.Repository
         }
 
 
-        public void SetPlayerLocation(int id, int room )
+        public void SetPlayerLocation(int playerId, int room )
         {
             using (var context = ApplicationDbContext.Create())
             {
-                var player = context.Players.Find(id); 
+                var player = context.Players.Find(playerId); 
                 player.CurrentRoom = room; 
                 context.SaveChanges(); 
             }

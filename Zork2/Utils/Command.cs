@@ -12,58 +12,57 @@ namespace Zork2.Utils
 
         Initialisation initialisation = new Initialisation();
         PlayerRepository playerRepository = new PlayerRepository();
+        RoomRepository roomRepository = new RoomRepository();
 
-        public string CheckCommand(string input, List<Room> roomList)
+
+
+        public string CheckCommand(string input)
         {
-             // search if input is a room namen
-             foreach (Room element in roomList)
-             {
-                if(string.Equals(input, element.TextField, StringComparison.OrdinalIgnoreCase))
-                {
-                    return "Room";
-                }
-             }
-
+            // search if input is a room namen
+            if (roomRepository.IsRoomName(input))
+            {
+                return "Room";
+            }
             return "This is not a command";
         }
 
+    
+        public string NextRoom(string input, string playerId)
+        {
+            var roomNumber = roomRepository.GetIdByName(input);
+            int playerIntId = playerRepository.GetPlayerById(playerId);
 
-
-            
-        public string NextRoom(string input, string id, List<Room> roomList)
-        { 
             //if input is same room
-            if (input == roomList[playerRepository.GetPlayerLocation(id)].TextField)
+            if (input == roomRepository.GetRoomName(playerRepository.GetPlayerLocation(playerId)))
             {
                 return "You are already there";
             }
             //if input is final room
-            else if (input == roomList[roomList.Count - 1].TextField)
+            
+            else if (input == roomRepository.GetRoomName(roomRepository.GetLastRoomId()))
             {
+                playerRepository.SetPlayerLocation(playerIntId, roomNumber);
                 return "you are a loser baby so why don't you kill me";
             }
-             
-             //search for new room index and show next posible rooms
-            foreach (Room element in roomList)
-            {
-              if (input == element.TextField)
-              {
-               //set location player to new room and return next posible rooms
-                 playerRepository.SetPlayerLocation(1,element.RoomNumber);
-                 return "where to next? -> "+ NextPosibleRoom(element.RoomNumber, roomList);
-              }
-            }
 
-            return "this move is not legal";
+
+            //set location player to new room and return next posible rooms
+            playerRepository.SetPlayerLocation(playerIntId, roomNumber);
+            return "where to next? -> "+ NextPosibleRoom(roomNumber);
+
         }
 
 
         //check if it is posible to step to the room from current location
-        public bool CanStapToRoom(string input, string id, List<Room> roomList)
+        // using room name as input and player id for currend location
+        public bool CanStapToRoom(string input, string id)
         {
-            foreach (int element in roomList[playerRepository.GetPlayerLocation(id)].NextRoom)
+
+            var adjecentRooms = roomRepository.GetAdjecentRooms(playerRepository.GetPlayerLocation(id));
+
+            foreach (int element in adjecentRooms)
             {
-                if (input == roomList[element].TextField)
+                if (input == roomRepository.GetRoomName(element))
                 {
                     return true;
                 }
@@ -72,19 +71,19 @@ namespace Zork2.Utils
         }
 
 
-
-
-        public string NextPosibleRoom(int room, List<Room> roomList)
+        //input currend room number
+        //output adjecent room names
+        public string NextPosibleRoom(int roomId)
         {
-            string roomName = "";
+            string roomNames = "";
 
-            int[] roomIndex = roomList[room].NextRoom;
+            int[] roomIndex = roomRepository.GetAdjecentRooms(roomId);
 
             foreach (int element in roomIndex)
             {
-                roomName += roomList[element].TextField + ", ";
+                roomNames += roomRepository.GetRoomName(element) + ", ";
             }
-            return roomName;
+            return roomNames;
         }
     }
 }

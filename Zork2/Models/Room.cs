@@ -7,18 +7,23 @@ namespace Zork2.Models
 {
     public class Room
     {
-        public int Id { get; set; }
-        public int RoomNumber { get; set; }
-        public string TextField { get; set; }
-        public int[] NextRoom { get; set; }
-        //  public List<string> Options { get; set; }
+        public Room() { }
 
-
-        public Room(int roomNumber, string textField, int[] nextRoom)
+        public Room(int roomNumber, string roomName, string adjacentRoom)
         {
             RoomNumber = roomNumber;
-            TextField = textField;
-            NextRoom = nextRoom;
+            RoomName = roomName;
+            AdjacentRoom = adjacentRoom;
         }
+
+
+
+        public int Id { get; set; }
+        public int RoomNumber { get; set; }
+        public string RoomName { get; set; }
+        public string AdjacentRoom { get; set; }
+
+
+
     }
 }

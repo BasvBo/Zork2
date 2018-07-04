@@ -11,9 +11,10 @@ namespace Zork2.Controllers
     public class CommandController
     {
         PlayerRepository playerRepository = new PlayerRepository();
+        RoomRepository roomRepository = new RoomRepository();
         Command command = new Command();
 
-        public string ChangeCommandTyp(string input, string userId, List<Room>roomlist)
+        public string ChangeCommandTyp(string input, string userId)
         {
             var playerTableId = playerRepository.GetPlayerById(userId);
 
@@ -24,7 +25,7 @@ namespace Zork2.Controllers
                 //send back current location
                 var currendLocation = playerRepository.GetPlayerLocation(userId);
                 
-                return ("Currend Location is -> " + roomlist[currendLocation].TextField);
+                return ("Currend Location is -> " + roomRepository.GetRoomName(currendLocation));
             }
 
             if (input == "move")
@@ -34,7 +35,7 @@ namespace Zork2.Controllers
                 //send back posible move's
                 var currendLocation = playerRepository.GetPlayerLocation(userId);
 
-                var possibelmoves = command.NextPosibleRoom(currendLocation, roomlist);
+                var possibelmoves = command.NextPosibleRoom(currendLocation);
 
                 return ("possible movements are -> " + possibelmoves);
             }
@@ -43,26 +44,42 @@ namespace Zork2.Controllers
         }
 
 
-        public string ValidateCommand(string input, string userId, List<Room> roomlist)
+        public string ValidateCommand(string input, string userId)
         {
 
             var currentComandState = playerRepository.GetPlayerCommandState(userId);
-
-            string commandType = command.CheckCommand(input,roomlist);
+            string commandType = command.CheckCommand(input);
 
             if(currentComandState == "move" && commandType == "Room")
             {
-                bool canMove = command.CanStapToRoom(input, userId, roomlist);
-
-                if(canMove == true)
-                {
-                   return command.NextRoom(input, userId, roomlist);  
-                }
-
-                return "Can not move to this room";
+                return "Room";
             }
 
-            return "Not a valid room";
+            return "false";
+        }
+
+
+        public string UseCommand(string commandType, string input, string userId)
+        {
+            if (commandType == "Room")
+            {
+               return MoveRoom(input, userId);
+            }
+
+            return "Not a valid command";
+        }
+
+
+        public string MoveRoom(string input, string userId)
+        {
+            bool canMove = command.CanStapToRoom(input, userId);
+
+            if (canMove == true)
+            {
+                return command.NextRoom(input, userId);
+            }
+
+            return "Can not move to this room";
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Zork2.Models
     public class Player
     {
         //pri const int init settings
-        private const int startRoom = 0;
+        private const int startRoom = 1;
         private const int startHealth = 5;
         private const string initialCommandType = "";
 
