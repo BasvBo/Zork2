@@ -45,10 +45,14 @@ namespace Zork2.Utils
             roomList.Add(new Room(9,    "strand",   "8;7;10"));
             roomList.Add(new Room(10,   "einde",    "9"));
 
-            foreach(var element in roomList)
+            //if rooms already saved don't add to db
+            if (roomRepository.GetLastRoomId() == 0)
             {
-                roomRepository.CreatRoom(element.RoomNumber, element.RoomName, element.AdjacentRoom);
-                
+                foreach (var element in roomList)
+                {
+                    roomRepository.CreatRoom(element.RoomNumber, element.RoomName, element.AdjacentRoom);
+
+                }
             }
         }
 
