@@ -40,6 +40,7 @@ namespace Zork2.Models
 
         public DbSet<Player> Players { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Item> Items { get; set; }
         //public DbSet<Story> Stories { get; set; }
         //public DbSet<Command> Commands { get; set; }
     }

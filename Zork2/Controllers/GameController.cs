@@ -45,9 +45,14 @@ namespace Zork2.Controllers
 
 
             //if input is equal change comand state player
-            if (input == "location"| input == "move"| input == "pickup")
+            if (input == "location"| input == "move"| input == "pickup"| input == "use item")
             {
                 return commandController.ChangeCommandTyp(input, id);  
+            }
+
+            if(input == "invatory")
+            {
+                return commandController.UseCommand("invatory", input, id);
             }
 
 

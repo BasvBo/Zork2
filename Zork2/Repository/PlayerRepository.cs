@@ -96,16 +96,47 @@ namespace Zork2.Repository
             }
         }
 
-        public void SetPickUpItem(string input, int id)
+        public void SetInvatory(string input, int id)
         {
             using (var context = ApplicationDbContext.Create())
             {
                 var player = context.Players.Find(id);
-                player.Items = input;
+                player.Invatory += input + ",";
                 context.SaveChanges();
             }
         }
 
+        public bool IsItemActive(string userId, string neededItem)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.SingleOrDefault(p => p.UserId == userId);
+                if(player.UsingItem == neededItem)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void SetActiveItem(string userId, string item)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.SingleOrDefault(p=> p.UserId == userId);
+                player.UsingItem = item ;
+                context.SaveChanges();
+            }
+        }
+
+        public string GetInvatory(string userId)
+        {
+            using(var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.SingleOrDefault(p => p.UserId == userId);
+                return player.Invatory;
+            }
+        }
 
         public void DeletePlayer(String name)
         {

@@ -45,6 +45,13 @@ namespace Zork2.Controllers
                 return ("pickup items are -> "+ string.Join(",",possibleItems));
             }
 
+            if (input == "use item")
+            {
+                playerRepository.SetPlayerCommandState(input, playerTableId);
+                return ("Your invatory is => " + playerRepository.GetInvatory(userId));
+
+            }
+
             return "Not valid Command Change Type";
         }
 
@@ -65,6 +72,11 @@ namespace Zork2.Controllers
                 return "Item";
             }
 
+            if (currentComandState == "use item" && commandType == "invatoryItem")
+            {
+                return "Activate";
+            }
+
             return "false";
         }
 
@@ -82,27 +94,56 @@ namespace Zork2.Controllers
                 return PickUpTheItem(input,userId);
             }
 
+            if(commandType == "invatory")
+            {
+                return ("Your invatory is => " + playerRepository.GetInvatory(userId));
+            }
+
+            if(commandType == "Activate")
+            {
+                playerRepository.SetActiveItem(userId, input);
+                return ("You are using => " + input);
+            }
+
             return "Not a valid command";
         }
 
 
-        public string MoveRoom(string input, string userId)
+        public string MoveRoom(string roomName, string userId)
         {
-            bool canMove = command.CanStapToRoom(input, userId);
+            bool itemIsActive = true;
+            bool canMove = false;
+            bool itemIsNeeded = true;
 
-            if (canMove == true)
+            canMove = command.CanStapToRoom(roomName, userId);
+            itemIsNeeded = roomRepository.IsUnlockItemNeeded(roomName);
+
+            if (itemIsNeeded)
             {
-                return command.NextRoom(input, userId);
+                var neededItem = roomRepository.GetUnlockItem(roomName);
+                itemIsActive = playerRepository.IsItemActive(userId, neededItem);
             }
+
+            if (canMove == true && itemIsActive == true)
+            {
+                playerRepository.SetActiveItem(userId, "");
+                return command.NextRoom(roomName, userId);
+            }
+
+
+            if(itemIsActive == false)
+                return "Item needed to continue";
+
 
             return "Can not move to this room";
         }
+
 
         public string PickUpTheItem(string input, string userId)
         {
 
             var playerIntId = playerRepository.GetPlayerById(userId);
-            playerRepository.SetPickUpItem(input, playerIntId);
+            playerRepository.SetInvatory(input, playerIntId);
 
             return ("You have picked up a -> " + input);
         }

@@ -118,5 +118,28 @@ namespace Zork2.Repository
         }
 
 
+        public bool IsUnlockItemNeeded(string roomName)
+        {
+            using(var context = ApplicationDbContext.Create())
+            {
+                var room = context.Rooms.SingleOrDefault(r=> r.RoomName == roomName);
+                if(room.UnlockItem == "")
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public string GetUnlockItem(string roomName)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var room = context.Rooms.SingleOrDefault(r => r.RoomName == roomName);
+                return room.UnlockItem;
+            }   
+        }
+
+
     }
 }
