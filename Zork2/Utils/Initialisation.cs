@@ -12,7 +12,9 @@ namespace Zork2.Utils
     {
 
         RoomRepository roomRepository = new RoomRepository();
+        ItemRepository itemRepository = new ItemRepository();
         List<Room> roomList = new List<Room>();
+        List<Item> itemList = new List<Item>();
 
 
 
@@ -26,6 +28,7 @@ namespace Zork2.Utils
             {
                 CreatPlayer(input, id);
                 BuildRooms();
+                SetItems(id);
                 return "set"; 
             }
             
@@ -53,6 +56,18 @@ namespace Zork2.Utils
                     roomRepository.CreatRoom(element.RoomNumber, element.RoomName, element.AdjacentRoom, element.PickUpItems, element.UnlockItem);
 
                 }
+            }
+        }
+
+        public void SetItems(string userId)
+        {
+            itemList.Add(new Item("key", 0));
+            itemList.Add(new Item("board", 0));
+            itemList.Add(new Item("boat", 0));
+
+            foreach(var element in itemList)
+            {
+                SetItems(userId,element.Name, element.Value);
             }
         }
 

@@ -30,6 +30,7 @@ namespace Zork2.Utils
                 return "Item";
             }
 
+            /*
             var invatory = (playerRepository.GetInvatory(playerId)).Split(';');
             foreach(var element in invatory)
             {
@@ -38,7 +39,7 @@ namespace Zork2.Utils
                     return "invatoryItem";
                 }
             }
-
+            */
             return "This is not a command";
         }
 

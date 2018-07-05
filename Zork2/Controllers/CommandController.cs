@@ -44,14 +44,14 @@ namespace Zork2.Controllers
 
                 return ("pickup items are -> "+ string.Join(",",possibleItems));
             }
-
+/*
             if (input == "use item")
             {
                 playerRepository.SetPlayerCommandState(input, playerTableId);
                 return ("Your invatory is => " + playerRepository.GetInvatory(userId));
 
             }
-
+*/
             return "Not valid Command Change Type";
         }
 
@@ -96,7 +96,7 @@ namespace Zork2.Controllers
 
             if(commandType == "invatory")
             {
-                return ("Your invatory is => " + playerRepository.GetInvatory(userId));
+                return ("Your invatory is => " + (playerRepository.GetInvatory(userId)).ToString());
             }
 
             if(commandType == "Activate")

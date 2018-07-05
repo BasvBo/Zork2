@@ -10,15 +10,16 @@ namespace Zork2.Models
 
         public Item() { }
 
-        public Item(string name, int number)
+        public Item(string name, int value)
         {
             Name = name;
-            Number = number;
+            Value = value;
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int Number { get; set; }
+        public int Value { get; set; }
+        
 
 
     }
