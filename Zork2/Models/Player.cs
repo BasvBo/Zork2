@@ -26,6 +26,7 @@ namespace Zork2.Models
             CurrentHealth = startHealth;
             CommandState = initialCommandType;
             UsingItem = initialUsingItem;
+            ItemsIn = new List<Item>();
            // Invatory = initialInvatory;
         }
 
@@ -41,6 +42,7 @@ namespace Zork2.Models
         public string UsingItem { get; set; }
         //public string Invatory { get; set; }
         public virtual Item Invatory { get; set; }
+        public ICollection<Item> ItemsIn { get; set; }
 
 
     }

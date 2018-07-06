@@ -98,13 +98,18 @@ namespace Zork2.Repository
 
         public void SetInvatory(string input, int id)
         {
+
+            var item = new Item(input, 1);
+          
+
             using (var context = ApplicationDbContext.Create())
             {
                 var player = context.Players.Find(id);
+                var item2 = context.Items.SingleOrDefault(i => i.Name == input);
+                
+                player.ItemsIn = new List<Item>();
+                player.ItemsIn.Add(item2);
 
-                var item = context.Items.SingleOrDefault(i => i.Name == input);
-                item.Value++;
-               // player.Invatory += input + ",";
                 context.SaveChanges();
             }
         }
@@ -137,6 +142,7 @@ namespace Zork2.Repository
             using(var context = ApplicationDbContext.Create())
             {
                 var player = context.Players.SingleOrDefault(p => p.UserId == userId);
+
                 return player.Invatory;
             }
         }
@@ -151,6 +157,8 @@ namespace Zork2.Repository
             }
         }
         //-------------------------------------------------------------------------------------------------------------------//
+
+
 
         public void SetItems(string userId, string itemName, int value)
         {
