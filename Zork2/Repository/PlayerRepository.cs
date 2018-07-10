@@ -96,7 +96,7 @@ namespace Zork2.Repository
             }
         }
 
-        public void SetInvatory(string input, int id)
+        public void SetInventory(string input, int id)
         {
 
             var item = new Item(input, 1);
@@ -107,8 +107,8 @@ namespace Zork2.Repository
                 var player = context.Players.Find(id);
                 var item2 = context.Items.SingleOrDefault(i => i.Name == input);
                 
-                player.ItemsIn = new List<Item>();
-                player.ItemsIn.Add(item2);
+                //player.ItemsList = new List<Item>();
+                player.ItemsList.Add(item2);
 
                 context.SaveChanges();
             }
@@ -137,13 +137,18 @@ namespace Zork2.Repository
             }
         }
 
-        public Item GetInvatory(string userId)
+        public string GetInventory(string userId)
         {
             using(var context = ApplicationDbContext.Create())
             {
                 var player = context.Players.SingleOrDefault(p => p.UserId == userId);
 
-                return player.Invatory;
+                var inventoryList = "";
+                foreach(var element in player.ItemsList)
+                {
+                    inventoryList += element.Name + ",";
+                }
+                return inventoryList;
             }
         }
 
@@ -156,22 +161,8 @@ namespace Zork2.Repository
                 context.SaveChanges();
             }
         }
-        //-------------------------------------------------------------------------------------------------------------------//
 
 
-
-        public void SetItems(string userId, string itemName, int value)
-        {
-            var item = new Item(itemName, value);
-
-            using (var context = ApplicationDbContext.Create())
-            {
-                var player = context.Players.SingleOrDefault(p => p.UserId == userId);
-                player.Invatory = item;
-                //context.Items.Add(item);
-                context.SaveChanges();
-            }
-        }
 
 
     }

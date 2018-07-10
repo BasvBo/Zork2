@@ -12,7 +12,7 @@ namespace Zork2.Models
         private const int startHealth = 5;
         private const string initialCommandType = "";
         private const string initialUsingItem = "";
-        //private const string initialInvatory = "";
+       
 
 
         public Player() { }
@@ -26,12 +26,11 @@ namespace Zork2.Models
             CurrentHealth = startHealth;
             CommandState = initialCommandType;
             UsingItem = initialUsingItem;
-            ItemsIn = new List<Item>();
-           // Invatory = initialInvatory;
+            ItemsList = new List<Item>();
         }
 
 
-
+        
         public int Id { get; set; }
         public string UserId { get; set; }
         public string NamePlayer { get; set; }
@@ -40,9 +39,7 @@ namespace Zork2.Models
         public int CurrentHealth { get; set; }
         public string CommandState { get; set; }
         public string UsingItem { get; set; }
-        //public string Invatory { get; set; }
-        public virtual Item Invatory { get; set; }
-        public ICollection<Item> ItemsIn { get; set; }
+        public virtual ICollection<Item> ItemsList { get; set; }
 
 
     }

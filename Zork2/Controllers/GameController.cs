@@ -25,7 +25,7 @@ namespace Zork2.Controllers
             //only runs on start up & player exists
             if (input == null && playerRepository.GetPlayerById(id) != 0)
             {
-                return ("Pleas type a valid command " + playerRepository.GetPlayerNameById(id) 
+                return ("Please type a valid command " + playerRepository.GetPlayerNameById(id) 
                     + Environment.NewLine + "What would you like to do? get 'location' info or 'move'");
             }
 
@@ -50,9 +50,9 @@ namespace Zork2.Controllers
                 return commandController.ChangeCommandTyp(input, id);  
             }
 
-            if(input == "invatory")
+            if(input == "inventory")
             {
-                return commandController.UseCommand("invatory", input, id);
+                return commandController.UseCommand("inventory", input, id);
             }
 
 

@@ -30,16 +30,16 @@ namespace Zork2.Utils
                 return "Item";
             }
 
-            /*
-            var invatory = (playerRepository.GetInvatory(playerId)).Split(';');
-            foreach(var element in invatory)
+           
+            var inventory = (playerRepository.GetInventory(playerId)).Split(',');
+            foreach(var element in inventory)
             {
                 if (input == element)
                 {
-                    return "invatoryItem";
+                    return "inventoryItem";
                 }
             }
-            */
+          
             return "This is not a command";
         }
 

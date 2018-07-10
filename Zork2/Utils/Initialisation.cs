@@ -22,7 +22,7 @@ namespace Zork2.Utils
         {
             if (input == null)
             {
-                return "Pleas Type in your Name";
+                return "Please Type in your Name";
             }
             else
             {
@@ -67,8 +67,9 @@ namespace Zork2.Utils
 
             foreach(var element in itemList)
             {
-                SetItems(userId,element.Name, element.Value);
+               itemRepository.SetItems(element.Name, element.Value);
             }
+            
         }
 
 

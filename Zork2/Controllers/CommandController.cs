@@ -44,14 +44,14 @@ namespace Zork2.Controllers
 
                 return ("pickup items are -> "+ string.Join(",",possibleItems));
             }
-/*
+
             if (input == "use item")
             {
                 playerRepository.SetPlayerCommandState(input, playerTableId);
-                return ("Your invatory is => " + playerRepository.GetInvatory(userId));
+                return ("Your inventory is => " + playerRepository.GetInventory(userId));
 
             }
-*/
+
             return "Not valid Command Change Type";
         }
 
@@ -72,7 +72,7 @@ namespace Zork2.Controllers
                 return "Item";
             }
 
-            if (currentComandState == "use item" && commandType == "invatoryItem")
+            if (currentComandState == "use item" && commandType == "inventoryItem")
             {
                 return "Activate";
             }
@@ -94,9 +94,9 @@ namespace Zork2.Controllers
                 return PickUpTheItem(input,userId);
             }
 
-            if(commandType == "invatory")
+            if(commandType == "inventory")
             {
-                return ("Your invatory is => " + (playerRepository.GetInvatory(userId)).ToString());
+                return ("Your inventory is => " + (playerRepository.GetInventory(userId)).ToString());
             }
 
             if(commandType == "Activate")
@@ -143,7 +143,7 @@ namespace Zork2.Controllers
         {
 
             var playerIntId = playerRepository.GetPlayerById(userId);
-            playerRepository.SetInvatory(input, playerIntId);
+            playerRepository.SetInventory(input, playerIntId);
 
             return ("You have picked up a -> " + input);
         }
