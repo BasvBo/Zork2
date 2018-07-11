@@ -9,10 +9,10 @@ namespace Zork2.Repository
     public class RoomRepository
     {
 
-        public void CreatRoom(int id, string roomName, string adjacentRoom)
+        public void CreatRoom(int id, string roomName, string adjacentRoom, string pickUpItems, string unlockItem)
         {
 
-            var room = new Room(id, roomName, adjacentRoom);
+            var room = new Room(id, roomName, adjacentRoom, pickUpItems, unlockItem);
 
             using (var context = ApplicationDbContext.Create())
             {
@@ -85,6 +85,59 @@ namespace Zork2.Repository
             }
 
             return true;
+        }
+
+
+        public bool IsPickupItem(string input, int roomId)
+        {
+           foreach(var element in GetPickupItems(roomId))
+            {
+                if(element == input)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        public string[] GetPickupItems(int roomId)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var room = context.Rooms.SingleOrDefault(r => r.Id == roomId);
+                if (room == null)
+                {
+                    return null;
+                }
+
+                return room.PickUpItems.Split(',');
+
+            }
+        }
+
+
+        public bool IsUnlockItemNeeded(string roomName)
+        {
+            using(var context = ApplicationDbContext.Create())
+            {
+                var room = context.Rooms.SingleOrDefault(r=> r.RoomName == roomName);
+                if(room.UnlockItem == "")
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public string GetUnlockItem(string roomName)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var room = context.Rooms.SingleOrDefault(r => r.RoomName == roomName);
+                return room.UnlockItem;
+            }   
         }
 
 

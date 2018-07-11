@@ -36,6 +36,22 @@ namespace Zork2.Controllers
                 return ("possible movements are -> " + possibelmoves);
             }
 
+            if (input == "pickup")
+            {
+                playerRepository.SetPlayerCommandState(input, playerTableId);
+                var currendLocation = playerRepository.GetPlayerLocation(userId);
+                var possibleItems = roomRepository.GetPickupItems(currendLocation);
+
+                return ("pickup items are -> "+ string.Join(",",possibleItems));
+            }
+
+            if (input == "use item")
+            {
+                playerRepository.SetPlayerCommandState(input, playerTableId);
+                return ("Your inventory is => " + playerRepository.GetInventory(userId));
+
+            }
+
             return "Not valid Command Change Type";
         }
 
@@ -44,11 +60,21 @@ namespace Zork2.Controllers
         {
 
             var currentComandState = playerRepository.GetPlayerCommandState(userId);
-            string commandType = command.CheckCommand(input.ToLower());
+            string commandType = command.CheckCommand(input.ToLower(),userId);
 
             if(currentComandState == "move" && commandType == "Room")
             {
                 return "Room";
+            }
+
+            if(currentComandState == "pickup" && commandType == "Item")
+            {
+                return "Item";
+            }
+
+            if (currentComandState == "use item" && commandType == "inventoryItem")
+            {
+                return "Activate";
             }
 
             return "false";
@@ -62,20 +88,64 @@ namespace Zork2.Controllers
                return MoveRoom(input.ToLower(), userId);
             }
 
+            if (commandType == "Item")
+            {
+
+                return PickUpTheItem(input,userId);
+            }
+
+            if(commandType == "inventory")
+            {
+                return ("Your inventory is => " + (playerRepository.GetInventory(userId)).ToString());
+            }
+
+            if(commandType == "Activate")
+            {
+                playerRepository.SetActiveItem(userId, input);
+                return ("You are using => " + input);
+            }
+
             return "Not a valid command";
         }
 
 
-        public string MoveRoom(string input, string userId)
+        public string MoveRoom(string roomName, string userId)
         {
-            bool canMove = command.CanStapToRoom(input, userId);
+            bool itemIsActive = true;
+            bool canMove = false;
+            bool itemIsNeeded = true;
 
-            if (canMove == true)
+            canMove = command.CanStapToRoom(roomName, userId);
+            itemIsNeeded = roomRepository.IsUnlockItemNeeded(roomName);
+
+            if (itemIsNeeded)
             {
-                return command.NextRoom(input, userId);
+                var neededItem = roomRepository.GetUnlockItem(roomName);
+                itemIsActive = playerRepository.IsItemActive(userId, neededItem);
             }
 
+            if (canMove == true && itemIsActive == true)
+            {
+                playerRepository.SetActiveItem(userId, "");
+                return command.NextRoom(roomName, userId);
+            }
+
+
+            if(itemIsActive == false)
+                return "Item needed to continue";
+
+
             return "Can not move to this room";
+        }
+
+
+        public string PickUpTheItem(string input, string userId)
+        {
+
+            var playerIntId = playerRepository.GetPlayerById(userId);
+            playerRepository.SetInventory(input, playerIntId);
+
+            return ("You have picked up a -> " + input);
         }
     }
 }

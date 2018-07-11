@@ -27,9 +27,9 @@ namespace Zork2.Models
         {
             //Database.SetInitializer<ApplicationDbContext>(new CreateDatabaseIfNotExists<ApplicationDbContext>());
 
-            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
 
-            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
+            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()
@@ -40,6 +40,7 @@ namespace Zork2.Models
 
         public DbSet<Player> Players { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Item> Items { get; set; }
         //public DbSet<Story> Stories { get; set; }
         //public DbSet<Command> Commands { get; set; }
     }

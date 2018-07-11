@@ -16,13 +16,30 @@ namespace Zork2.Utils
 
 
 
-        public string CheckCommand(string input)
+        public string CheckCommand(string input,string playerId)
         {
             // search if input is a room namen
             if (roomRepository.IsRoomName(input))
             {
                 return "Room";
             }
+
+            var currentLocation = playerRepository.GetPlayerLocation(playerId);
+            if (roomRepository.IsPickupItem(input, currentLocation))
+            {
+                return "Item";
+            }
+
+           
+            var inventory = (playerRepository.GetInventory(playerId)).Split(',');
+            foreach(var element in inventory)
+            {
+                if (input == element)
+                {
+                    return "inventoryItem";
+                }
+            }
+          
             return "This is not a command";
         }
 
@@ -37,8 +54,7 @@ namespace Zork2.Utils
             {
                 return "You are already there";
             }
-            //if input is final room
-            
+            //if input is final room 
             else if (input == roomRepository.GetRoomName(roomRepository.GetLastRoomId()))
             {
                 playerRepository.SetPlayerLocation(playerIntId, roomNumber);
@@ -85,5 +101,6 @@ namespace Zork2.Utils
             }
             return roomNames;
         }
+
     }
 }

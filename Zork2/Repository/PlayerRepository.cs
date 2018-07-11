@@ -96,6 +96,61 @@ namespace Zork2.Repository
             }
         }
 
+        public void SetInventory(string input, int id)
+        {
+
+            var item = new Item(input, 1);
+          
+
+            using (var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.Find(id);
+                var item2 = context.Items.SingleOrDefault(i => i.Name == input);
+                
+                //player.ItemsList = new List<Item>();
+                player.ItemsList.Add(item2);
+
+                context.SaveChanges();
+            }
+        }
+
+        public bool IsItemActive(string userId, string neededItem)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.SingleOrDefault(p => p.UserId == userId);
+                if(player.UsingItem == neededItem)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void SetActiveItem(string userId, string item)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.SingleOrDefault(p=> p.UserId == userId);
+                player.UsingItem = item ;
+                context.SaveChanges();
+            }
+        }
+
+        public string GetInventory(string userId)
+        {
+            using(var context = ApplicationDbContext.Create())
+            {
+                var player = context.Players.SingleOrDefault(p => p.UserId == userId);
+
+                var inventoryList = "";
+                foreach(var element in player.ItemsList)
+                {
+                    inventoryList += element.Name + ",";
+                }
+                return inventoryList;
+            }
+        }
 
         public void DeletePlayer(String name)
         {
@@ -106,6 +161,8 @@ namespace Zork2.Repository
                 context.SaveChanges();
             }
         }
+
+
 
 
     }
