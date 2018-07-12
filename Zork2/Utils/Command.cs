@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Zork2.Models;
 using Zork2.Repository;
+using Zork2.Resources;
 
 namespace Zork2.Utils
 {
@@ -24,22 +25,22 @@ namespace Zork2.Utils
                 return "Room";
             }
 
-            var currentLocation = playerRepository.GetPlayerLocation(playerId);
-            if (roomRepository.IsPickupItem(input, currentLocation))
-            {
-                return "Item";
-            }
-
-           
             var inventory = (playerRepository.GetInventory(playerId)).Split(',');
-            foreach(var element in inventory)
+            foreach (var element in inventory)
             {
                 if (input == element)
                 {
                     return "inventoryItem";
                 }
             }
-          
+
+            var currentLocation = playerRepository.GetPlayerLocation(playerId);
+            if (roomRepository.IsPickupItem(input, currentLocation))
+            {
+                return "Item";
+            }
+            
+
             return "This is not a command";
         }
 
@@ -55,7 +56,7 @@ namespace Zork2.Utils
                 return "You are already there";
             }
             //if input is final room 
-            else if (input == roomRepository.GetRoomName(roomRepository.GetLastRoomId()))
+            else if (input == roomRepository.GetRoomName(roomRepository.GetSizeOfRoomDb()))
             {
                 playerRepository.SetPlayerLocation(playerIntId, roomNumber);
                 return "you are a loser baby so why don't you kill me";
@@ -64,7 +65,8 @@ namespace Zork2.Utils
 
             //set location player to new room and return next posible rooms
             playerRepository.SetPlayerLocation(playerIntId, roomNumber);
-            return "where to next? -> "+ NextPosibleRoom(roomNumber);
+            var roomDiscription = RoomStories.ResourceManager.GetString("Room" + roomNumber) + Environment.NewLine;
+            return roomDiscription + "where to next? -> " + NextPosibleRoom(roomNumber);
 
         }
 

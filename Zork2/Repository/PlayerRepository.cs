@@ -11,7 +11,6 @@ namespace Zork2.Repository
 
         public void CreatPlayer(string name,string id)
         {
-
             var player = new Player(name,id);
 
             using (var context = ApplicationDbContext.Create())
@@ -36,7 +35,6 @@ namespace Zork2.Repository
                 
                 return player.Id;
             }
-           
         }
 
 
@@ -48,7 +46,6 @@ namespace Zork2.Repository
  
                 return player.NamePlayer;
             }
-
         }
 
 
@@ -60,7 +57,6 @@ namespace Zork2.Repository
 
                 return player.CurrentRoom;
             }
-
         }
 
 
@@ -101,14 +97,12 @@ namespace Zork2.Repository
 
             var item = new Item(input, 1);
           
-
             using (var context = ApplicationDbContext.Create())
             {
                 var player = context.Players.Find(id);
-                var item2 = context.Items.SingleOrDefault(i => i.Name == input);
+                var selectItem = context.Items.SingleOrDefault(i => i.Name == input);
                 
-                //player.ItemsList = new List<Item>();
-                player.ItemsList.Add(item2);
+                player.ItemsList.Add(selectItem);
 
                 context.SaveChanges();
             }

@@ -25,8 +25,8 @@ namespace Zork2.Controllers
             //only runs on start up & player exists
             if (input == null && playerRepository.GetPlayerById(id) != 0)
             {
-                return ("Please type a valid command " + playerRepository.GetPlayerNameById(id) 
-                    + Environment.NewLine + "What would you like to do? get 'location' info or 'move'");
+                return ("What would you like to do " + playerRepository.GetPlayerNameById(id) + "?" + Environment.NewLine 
+                    + "get 'location', 'move', 'pickup' item, 'use' item or see 'inventory");
             }
 
 
@@ -37,7 +37,7 @@ namespace Zork2.Controllers
                 if (iets == "set")
                 {
                     return "Your name has been set " + input + ", Lets play!!"
-                        + Environment.NewLine + "What would you like to do? get 'location' info or 'move'";
+                        + Environment.NewLine + "What would you like to do? get 'location', 'move', 'pickup' item, 'use' item or see 'inventory";
                 }
                 return iets;
                 
@@ -45,14 +45,14 @@ namespace Zork2.Controllers
 
 
             //if input is equal change comand state player
-            if (input == "location"| input == "move"| input == "pickup"| input == "use item")
+            if (input == "location"| input == "move"| input == "pickup"| input == "use")
             {
                 return commandController.ChangeCommandTyp(input, id);  
             }
 
             if(input == "inventory")
             {
-                return commandController.UseCommand("inventory", input, id);
+                return commandController.UseCommand("Inventory", input, id);
             }
 
 
@@ -71,7 +71,7 @@ namespace Zork2.Controllers
 
             }
 
-            return "What would you like to do? get 'location' info or 'move'";
+            return "FALSE";
             
         }
 

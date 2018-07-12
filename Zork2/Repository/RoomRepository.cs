@@ -140,6 +140,23 @@ namespace Zork2.Repository
             }   
         }
 
+        public void DeleteAllRooms()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var roomDbCount = GetSizeOfRoomDb();
+                
+                for (int i = 0; i< roomDbCount; i++)
+                {
+                    var roomcount = context.Rooms.Find(i+1);
+                    context.Rooms.Remove(roomcount);
+                }
+                
+               
+                context.SaveChanges();
+            }
+        }
+
 
     }
 }

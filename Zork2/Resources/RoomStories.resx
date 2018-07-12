@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Room1" xml:space="preserve">
-    <value />
+    <value>You are now in the beginning of the game from here you can move too the tree or to the house. Only the house is Locked so try to find the key that unlocks the house</value>
   </data>
   <data name="Room10" xml:space="preserve">
-    <value />
+    <value>You are in room 10</value>
   </data>
   <data name="Room2" xml:space="preserve">
-    <value />
+    <value>You are in room 2</value>
   </data>
   <data name="Room3" xml:space="preserve">
-    <value />
+    <value>You are in room 3</value>
   </data>
   <data name="Room4" xml:space="preserve">
-    <value />
+    <value>You are in room 4</value>
   </data>
   <data name="Room5" xml:space="preserve">
-    <value />
+    <value>You are in room 5</value>
   </data>
   <data name="Room6" xml:space="preserve">
-    <value />
+    <value>You are in room 6</value>
   </data>
   <data name="Room7" xml:space="preserve">
-    <value />
+    <value>You are in room 7</value>
   </data>
   <data name="Room8" xml:space="preserve">
-    <value />
+    <value>You are in room 8</value>
   </data>
   <data name="Room9" xml:space="preserve">
-    <value />
+    <value>You are in room 9</value>
   </data>
 </root>

@@ -18,41 +18,33 @@ namespace Zork2.Controllers
         public string ChangeCommandTyp(string input, string userId)
         {
             var playerTableId = playerRepository.GetPlayerById(userId);
+            var currendLocation = playerRepository.GetPlayerLocation(userId);
 
-            if (input == "location")
+            switch (input)
             {
-                playerRepository.SetPlayerCommandState(input, playerTableId);
-                var currendLocation = playerRepository.GetPlayerLocation(userId);
-                
-                return ("Currend Location is -> " + roomRepository.GetRoomName(currendLocation));
+                case "location":
+                    playerRepository.SetPlayerCommandState(input, playerTableId);
+                    return ("Currend Location is -> " + roomRepository.GetRoomName(currendLocation));
+
+                case "move":
+                    playerRepository.SetPlayerCommandState(input, playerTableId);
+                    var possibelmoves = command.NextPosibleRoom(currendLocation);
+
+                    return ("possible movements are -> " + possibelmoves);
+
+                case "pickup":
+                    playerRepository.SetPlayerCommandState(input, playerTableId);
+                    var possibleItems = roomRepository.GetPickupItems(currendLocation);
+
+                    return ("pickup items are -> " + string.Join(",", possibleItems));
+
+                case "use":
+                    playerRepository.SetPlayerCommandState(input, playerTableId);
+                    return ("Your inventory is => " + playerRepository.GetInventory(userId));
+
+                default:
+                    return "Not valid Command Change Type";
             }
-
-            if (input == "move")
-            {
-                playerRepository.SetPlayerCommandState(input, playerTableId);
-                var currendLocation = playerRepository.GetPlayerLocation(userId);
-                var possibelmoves = command.NextPosibleRoom(currendLocation);
-
-                return ("possible movements are -> " + possibelmoves);
-            }
-
-            if (input == "pickup")
-            {
-                playerRepository.SetPlayerCommandState(input, playerTableId);
-                var currendLocation = playerRepository.GetPlayerLocation(userId);
-                var possibleItems = roomRepository.GetPickupItems(currendLocation);
-
-                return ("pickup items are -> "+ string.Join(",",possibleItems));
-            }
-
-            if (input == "use item")
-            {
-                playerRepository.SetPlayerCommandState(input, playerTableId);
-                return ("Your inventory is => " + playerRepository.GetInventory(userId));
-
-            }
-
-            return "Not valid Command Change Type";
         }
 
 
@@ -72,7 +64,7 @@ namespace Zork2.Controllers
                 return "Item";
             }
 
-            if (currentComandState == "use item" && commandType == "inventoryItem")
+            if (currentComandState == "use" && commandType == "inventoryItem")
             {
                 return "Activate";
             }
@@ -83,29 +75,25 @@ namespace Zork2.Controllers
 
         public string UseCommand(string commandType, string input, string userId)
         {
-            if (commandType == "Room")
+            switch (commandType)
             {
-               return MoveRoom(input.ToLower(), userId);
+                case "Room":
+                    return MoveRoom(input.ToLower(), userId);
+                    
+                case "Item":
+                    return PickUpTheItem(input, userId);
+                    
+                case "Invatory":
+                    return ("Your inventory is => " + (playerRepository.GetInventory(userId)).ToString());
+                    
+                case "Activate":
+                    playerRepository.SetActiveItem(userId, input);
+                    return ("You are using => " + input);
+
+                default:
+                    return "Not a valid command";
             }
-
-            if (commandType == "Item")
-            {
-
-                return PickUpTheItem(input,userId);
-            }
-
-            if(commandType == "inventory")
-            {
-                return ("Your inventory is => " + (playerRepository.GetInventory(userId)).ToString());
-            }
-
-            if(commandType == "Activate")
-            {
-                playerRepository.SetActiveItem(userId, input);
-                return ("You are using => " + input);
-            }
-
-            return "Not a valid command";
+            
         }
 
 

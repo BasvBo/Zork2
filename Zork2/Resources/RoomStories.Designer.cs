@@ -61,7 +61,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are now in the beginning of the game from here you can move too the tree or to the house. Only the house is Locked so try to find the key that unlocks the house.
         /// </summary>
         internal static string Room1 {
             get {
@@ -70,7 +70,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 10.
         /// </summary>
         internal static string Room10 {
             get {
@@ -79,7 +79,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 2.
         /// </summary>
         internal static string Room2 {
             get {
@@ -88,7 +88,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 3.
         /// </summary>
         internal static string Room3 {
             get {
@@ -97,7 +97,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 4.
         /// </summary>
         internal static string Room4 {
             get {
@@ -106,7 +106,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 5.
         /// </summary>
         internal static string Room5 {
             get {
@@ -115,7 +115,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 6.
         /// </summary>
         internal static string Room6 {
             get {
@@ -124,7 +124,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 7.
         /// </summary>
         internal static string Room7 {
             get {
@@ -133,7 +133,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 8.
         /// </summary>
         internal static string Room8 {
             get {
@@ -142,7 +142,7 @@ namespace Zork2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are in room 9.
         /// </summary>
         internal static string Room9 {
             get {
