@@ -8,7 +8,6 @@ namespace Zork2.Repository
 {
     public class ItemRepository
     {
-        //-------------------------------------------------------------------------------------------------------------------//
 
         public void SetItems(string itemName, int value)
         {
@@ -18,6 +17,16 @@ namespace Zork2.Repository
             {
                 context.Items.Add(item);
                 context.SaveChanges();
+            }
+        }
+
+        public int GetSizeOfItemDb()
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                var listSize = context.Items.Count<Item>();
+
+                return listSize;
             }
         }
     }

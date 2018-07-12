@@ -38,7 +38,7 @@ namespace Zork2.Repository
             }
         }
 
-        public int GetLastRoomId()
+        public int GetSizeOfRoomDb()
         {
             using(var context = ApplicationDbContext.Create())
             {

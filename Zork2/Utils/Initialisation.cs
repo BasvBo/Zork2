@@ -49,7 +49,7 @@ namespace Zork2.Utils
             roomList.Add(new Room(10,   "einde",    "9",        "",     "boat"));
 
             //if rooms already saved don't add to db
-            if (roomRepository.GetLastRoomId() == 0)
+            if (roomRepository.GetSizeOfRoomDb() == 0)
             {
                 foreach (var element in roomList)
                 {
@@ -65,11 +65,14 @@ namespace Zork2.Utils
             itemList.Add(new Item("board", 0));
             itemList.Add(new Item("boat", 0));
 
-            foreach(var element in itemList)
+            if (itemRepository.GetSizeOfItemDb() == 0)
             {
-               itemRepository.SetItems(element.Name, element.Value);
+                foreach (var element in itemList)
+                {
+                    itemRepository.SetItems(element.Name, element.Value);
+                }
+
             }
-            
         }
 
 
