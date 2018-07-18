@@ -20,7 +20,30 @@ namespace Zork2.Repository
             }
         }
 
-        public int GetSizeOfItemDb()
+
+        public void SetItems(List<Item> items)
+        {
+            //var item = new Item(itemName, value);
+
+            using (var context = ApplicationDbContext.Create())
+            {
+                foreach (var element in items)
+                {
+                    var item = new Item(element.Name, element.Value);
+                    context.Items.Add(item);
+                }
+               
+                context.SaveChanges();
+            }
+        }
+
+
+   
+
+
+
+
+public int GetSizeOfItemDb()
         {
             using (var context = ApplicationDbContext.Create())
             {

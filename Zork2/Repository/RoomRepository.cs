@@ -22,6 +22,19 @@ namespace Zork2.Repository
             }
         }
 
+        public void CreatRoom(List<Room> rooms )
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                foreach (var element in rooms)
+                {
+                    var room = new Room(element.RoomNumber, element.RoomName, element.AdjacentRoom, element.PickUpItems, element.UnlockItem);
+                    context.Rooms.Add(room);
+                }
+                context.SaveChanges();
+            }
+        }
+
 
         public int[] GetAdjecentRooms(int roomId)
         {

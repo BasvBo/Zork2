@@ -8,34 +8,14 @@ using Zork2.Repository;
 
 namespace Zork2.Utils
 {
-    public class Initialisation: PlayerRepository
+    public class Initialisation
     {
 
-        RoomRepository roomRepository = new RoomRepository();
-        ItemRepository itemRepository = new ItemRepository();
         List<Room> roomList = new List<Room>();
         List<Item> itemList = new List<Item>();
 
 
-
-        public string PlayerSetup(string input, string id)
-        {
-            if (input == null)
-            {
-                return "Please Type in your Name";
-            }
-            else
-            {
-                CreatPlayer(input, id);
-                BuildRooms();
-                SetItems(id);
-                return "set"; 
-            }
-            
-        }
-
-
-        public void BuildRooms()
+        public List<Room> GetRooms()
         {
             roomList.Add(new Room(1,    "start",                "2;3",      "",     ""));
             roomList.Add(new Room(2,    "magic tree",           "1;3",      "key",  ""));
@@ -48,33 +28,18 @@ namespace Zork2.Utils
             roomList.Add(new Room(9,    "beach",                "7;10",     "",     ""));
             roomList.Add(new Room(10,   "far far far away",     "9",        "",     "boat"));
 
-           // roomRepository.DeleteAllRooms();
+            return roomList;
 
-            //if rooms already saved don't add to db
-            if (roomRepository.GetSizeOfRoomDb() == 0)
-            {
-                foreach (var element in roomList)
-                {
-                    roomRepository.CreatRoom(element.RoomNumber, element.RoomName, element.AdjacentRoom, element.PickUpItems, element.UnlockItem);
-
-                }
-            }
         }
 
-        public void SetItems(string userId)
+        public List<Item> GetItems()
         {
             itemList.Add(new Item("key", 0));
             itemList.Add(new Item("board", 0));
             itemList.Add(new Item("boat", 0));
 
-            if (itemRepository.GetSizeOfItemDb() == 0)
-            {
-                foreach (var element in itemList)
-                {
-                    itemRepository.SetItems(element.Name, element.Value);
-                }
+            return itemList;
 
-            }
         }
 
 

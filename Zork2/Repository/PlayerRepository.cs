@@ -30,10 +30,18 @@ namespace Zork2.Repository
                 var player = context.Players.SingleOrDefault(p => p.UserId == id);
                 if (player == null)
                 {
-                    return 0;
+                    return -1;
                 }
                 
                 return player.Id;
+            }
+        }
+
+        public bool Exists(string id)
+        {
+            using (var context = ApplicationDbContext.Create())
+            {
+                return context.Players.SingleOrDefault(p => p.UserId == id) != null;
             }
         }
 

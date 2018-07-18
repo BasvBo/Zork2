@@ -196,8 +196,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CommandController.cs" />
-    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -210,7 +208,6 @@
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Room.cs" />
-    <Compile Include="Models\Story.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ItemRepository.cs" />
     <Compile Include="Repository\PlayerRepository.cs" />
@@ -221,8 +218,10 @@
       <DependentUpon>RoomStories.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\CommandSelector.cs" />
     <Compile Include="Utils\Initialisation.cs" />
     <Compile Include="Utils\Command.cs" />
+    <Compile Include="ViewModels\PrintViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
