@@ -117,8 +117,8 @@ namespace Zork2.Controllers
         {
             if (PlayerRepository.Exists(userId))
             {
-                return ("What would you like to do " + playerRepository.GetPlayerNameById(userId) + "?" + Environment.NewLine
-                     + "get 'location', 'move', 'pickup' item or 'use' item ");
+                return "What would you like to do " + playerRepository.GetPlayerNameById(userId) + "?" 
+                    + Environment.NewLine + Resources.UseStories.Help ;
             }
             else
             {
@@ -140,7 +140,7 @@ namespace Zork2.Controllers
             ItemRepository.SetItems(itemList);
 
             return "Your name has been set " + input + ", Lets play!!"
-                        + Environment.NewLine + "What would you like to do? get 'location', 'move', 'pickup' item or 'use' item" ;
+                        + Environment.NewLine + Resources.UseStories.Help;
         }
 
 

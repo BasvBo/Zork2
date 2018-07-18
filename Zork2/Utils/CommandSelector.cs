@@ -7,7 +7,18 @@ namespace Zork2.Utils
 {
     public class CommandSelector
     {
-        Command command = new Command();
+        Command command;
+        Command Command
+        {
+            get
+            {
+                if (command == null)
+                {
+                    command = new Command();
+                }
+                return command;
+            }
+        }
 
         public string Select(string input, string userId)
         {
@@ -17,6 +28,10 @@ namespace Zork2.Utils
             {
                 return "ChangeCommandType";
             }
+            if (input == "help")
+            {
+                return "help";
+            }
 
             return "UseCommand";
 
@@ -25,13 +40,17 @@ namespace Zork2.Utils
 
         public string Execute(string commandType, string input, string userId)
         {
-            if(commandType == "ChangeCommandType")
+            if (input == "help")
             {
-              return command.ChangeCommandTyp(input, userId);
+                return 
+            }
+            if (commandType == "ChangeCommandType")
+            {
+              return Command.ChangeCommandTyp(input, userId);
             }
             if(commandType == "UseCommand")
             {
-                var commandIsValid = command.ValidateCommand(input, userId);
+                var commandIsValid = Command.ValidateCommand(input, userId);
                 if (commandIsValid == "false")
                 {
                     return "this is not a valid command";

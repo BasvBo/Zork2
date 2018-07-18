@@ -217,6 +217,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RoomStories.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UseStories.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UseStories.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\CommandSelector.cs" />
     <Compile Include="Utils\Initialisation.cs" />
@@ -304,6 +309,10 @@
     <EmbeddedResource Include="Resources\RoomStories.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RoomStories.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UseStories.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UseStories.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
